@@ -44,7 +44,9 @@ class Product(db.Model):
             'primaryImg': self.primary_img,
             'secondaryImg': self.secondary_img,
             'createdAt': self.created_at,
-            'updatedAt': self.updated_at
+            'updatedAt': self.updated_at,
+            'variants': [variant.to_dict() for variant in self.variants]
+            # include variants in product model
         }
 
 
