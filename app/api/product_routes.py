@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
 from flask_login import login_required, current_user
-from sqlalchemy.orm import joinedLoad
+from sqlalchemy.orm import joinedload
 from app.models import Product, ProductVariant, ProductSize
 from app.forms import CreateProductForm
 
@@ -8,7 +8,7 @@ product_routes = Blueprint('products', __name__)
 
 
 # all products route
-@product_routes.route('/')
+@product_routes.route('/all')
 def all_products():
     """
     Products homepage displays all products
