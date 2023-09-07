@@ -30,9 +30,12 @@
   /* padding-right: 20px; */
 }
 
-.logo > a {
-    text-decoration: none;
+.logo > a, .account > a {
+  text-decoration: none;
+  color: black;
 }
+
+
 
 
 .right-nav {

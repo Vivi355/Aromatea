@@ -31,8 +31,23 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: flex-end;
 }
 
-/* .product-size {
+.detail-name {
+    font-size: 48px;
+}
 
-} */
+.detail-price {
+    font-size: 18px;
+}
+
+.product-description {
+    font-size: 16px;
+}
+
+.product-size span {
+    /* border: 2px solid orangered; */
+    padding-right: 20px;
+    padding-left: 40px;
+}

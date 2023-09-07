@@ -37,16 +37,16 @@ export const ProductDetail = () => {
 
             <div id="single-product-container">
                 <div className="images">
-                    <img src={product.primaryImg} alt={product.name}></img>
-                    <img src={product.secondaryImg} alt={product.name}></img>
+                    <img src={product.primaryImg} alt={product.name} style={{paddingBottom: "10px"}}></img>
+                    {product.secondaryImg ? <img src={product.secondaryImg} alt={product.name}></img> : null}
                 </div>
                 {/* <div className="second-image">
                 </div> */}
 
                 <div id="single-right">
                     <div className="name-price">
-                        <div>{product.name}</div>
-                        <div>${selectedSize?.price}</div>
+                        <div className="detail-name">{product.name}</div>
+                        <div className="detail-price">${selectedSize?.price}</div>
                     </div>
                     <div className="product-description">
                         {product.description}
