@@ -1,7 +1,44 @@
+#navigation-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  /* justify-content: center; */
+  align-items: center;
+  border: 2px solid red;
+  height: 70px;
+}
+
+.left-nav {
+  cursor: pointer;
+}
+
+.left-nav a {
+  text-decoration: none;
+  color: black;
+}
+
 .profile-dropdown {
   position: absolute;
 }
 
 .hidden {
   display: none;
+}
+
+.logo {
+  font-size: 25px;
+  /* padding-right: 20px; */
+}
+
+.logo > a {
+    text-decoration: none;
+}
+
+
+.right-nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  gap: 40px;
+  /* width: 200px; */
 }
