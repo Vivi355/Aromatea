@@ -8,6 +8,7 @@ import Navigation from "./components/Navigation";
 
 // import ProtectedRoute from "./components/auth/ProtectedRoute";
 import { ProductsIndex } from "./components/Products/ProductsIndex";
+import { ProductDetail } from "./components/Products/ProductDetail";
 
 function App() {
   const dispatch = useDispatch();
@@ -23,6 +24,9 @@ function App() {
         <Switch>
           <Route exact path="/products/all">
             <ProductsIndex />
+          </Route>
+          <Route exact path="/products/:productId">
+            <ProductDetail />
           </Route>
           <Route exact path="/login" >
             <LoginFormPage />
