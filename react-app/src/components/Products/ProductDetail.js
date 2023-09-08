@@ -9,13 +9,14 @@ export const ProductDetail = () => {
     const {productId} = useParams();
     const product = useSelector(state => state.products.singleProduct);
     // console.log(product);
-    const [selectedSize, setSelectedSize] = useState(product.variants ? product.variants[1] : null);
+    const [selectedSize, setSelectedSize] = useState(product.variants ? product.variants[0] : null);
     console.log(selectedSize);
 
     useEffect(() => {
         dispatch(thunkGetSingleProduct(productId)).then(yesProduct => {
+
             if (yesProduct.variants && yesProduct.variants.length > 0) {
-                setSelectedSize(yesProduct.variants[1])
+                setSelectedSize(yesProduct.variants[0])
             }
         })
     }, [dispatch, productId])

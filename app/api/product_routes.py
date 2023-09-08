@@ -1,7 +1,7 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, session, request
 from flask_login import login_required, current_user
 from sqlalchemy.orm import joinedload
-from app.models import Product, ProductVariant, ProductSize
+from app.models import Product, ProductVariant, ProductSize, db
 from app.forms import CreateProductForm
 
 product_routes = Blueprint('products', __name__)
@@ -45,8 +45,9 @@ def create_product():
     """
     form = CreateProductForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-
+    print('Route is being hit!!!!!!!!!!!!!', request.json)
     if form.validate_on_submit():
+        print("LINE 49!!!!!!!!!!!!!")
         new_product = Product(
             user_id=current_user.id,
             category_id=form.data['category_id'],
@@ -57,8 +58,10 @@ def create_product():
         )
         # new variant add to the new product
         new_variant = ProductVariant(
-            size=form.data['size'],
-            price=form.data['price']
+            # size=form.data['size'],
+            # price=form.data['price']
+            size=form.data['variants'][0]['size'],
+            price=form.data['variants'][0]['price']
         )
         # append to new_product vairants attribute
         new_product.variants.append(new_variant)
@@ -66,7 +69,8 @@ def create_product():
         db.session.add(new_product)
         db.session.commit()
         return new_product.to_dict()
-    return {'errors': validation_errors_to_error_message(form.errors)}, 401
+    print('Form errors', form.errors)
+    return {'errors': form.errors}, 401
 
 
 # edit product route
@@ -94,7 +98,7 @@ def update_product(id):
         db.session.commit()
         return product_to_edit.to_dict()
 
-    return {'errors': validation_errors_to_error_message(form.errors)}, 400
+    return {'errors': form.errors}, 400
 
 
 # delete product
