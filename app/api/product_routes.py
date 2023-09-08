@@ -1,10 +1,9 @@
 from flask import Blueprint, jsonify, session, request
 from flask_login import login_required, current_user
 # from sqlalchemy.orm import joinedload
-from app.models import Product, ProductSize, db
-from app.forms import CreateProductForm, VariantForm
+from app.models import Product, ProductSize, db, CategoryEnum
+from app.forms import CreateProductForm
 
-from werkzeug.datastructures import MultiDict
 
 product_routes = Blueprint('products', __name__)
 
@@ -45,34 +44,38 @@ def create_product():
     """
     Create a new product
     """
-    # form = CreateProductForm()
 
-    form = CreateProductForm(data=request.json)
+    form = CreateProductForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
-    print('form variants data', form.variants.data)
+    # convert price to float before validating form
+    if 'price' in request.json:
+        try:
+            form.price.data = float(request.json['price'])
+        except ValueError:
+            return {'errors': ['Invalid price value']}, 400
+
     print("request data!!!!!!!!", request.json)
     print("FORM DATA!!!!!!!!", form.data)
+    print("Form Errors before validation!!!!!!!!!", form.errors)
     if form.validate_on_submit():
         print(" IN THE FORM SUBMIT!!!!!!!!!!!!!!!!!!!!!!")
         new_product = Product(
             user_id=current_user.id,
-            category_id=form.data['category_id'],
+            category=CategoryEnum(form.data['category']),
             name=form.data['name'],
             description=form.data['description'],
+            size=ProductSize(form.data['size']),
+            price=form.data['price'],
             primary_img=form.data['primary_img'],
             secondary_img=form.data['secondary_img'],
         )
-        # new variant add to the new product
-        for variant_data in form.variants.data:
-            variant = ProductVariant(size=variant_data['size'], price=variant_data['price'])
-            new_product.variants.append(variant)
 
         db.session.add(new_product)
         db.session.commit()
         return new_product.to_dict()
-    print('Form errors', form.errors)
-    return {'errors': form.errors, 'form_data': form.data}, 400
+
+    return {'errors': form.errors}, 400
 
 
 # edit product route

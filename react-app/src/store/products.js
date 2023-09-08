@@ -44,6 +44,7 @@ export const thunkGetAllProducts = () => async (dispatch) => {
 
 export const thunkGetSingleProduct = (id) => async (dispatch) => {
     const res = await fetch(`/api/products/${id}`);
+    console.log('thunk single id', id);
 
     if (res.ok) {
         const product = await res.json();

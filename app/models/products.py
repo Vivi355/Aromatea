@@ -3,8 +3,15 @@ from enum import Enum
 from datetime import datetime
 
 class ProductSize(Enum):
-    ONE_POUND = '1 Pound'
-    QUARTER_POUND = '1/4 Pound'
+    ONE_POUND = 'ONE_POUND'
+    QUARTER_POUND = 'QUARTER_POUND'
+
+class CategoryEnum(Enum):
+    BLACK = "BLACK"
+    GREEN = "GREEN"
+    WHITE = "WHITE"
+    BOTANICAL = "BOTANICAL"
+    OOLONG = "OOLONG"
 
 
 class Product(db.Model):
@@ -15,7 +22,7 @@ class Product(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
-    category_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('categories.id')))
+    category = db.Column(db.Enum(CategoryEnum), nullable=False)
     name = db.Column(db.String(200), nullable=False)
     description = db.Column(db.String(2000), nullable=False)
     price = db.Column(db.Numeric(precision=10, scale=2), nullable=False)
@@ -28,15 +35,14 @@ class Product(db.Model):
 
     # relatioships
     user = db.relationship('User', back_populates='products')
-    category = db.relationship('Category', back_populates='products')
+    # category = db.relationship('Category', back_populates='products')
 
-    # variants = db.relationship('ProductVariant', back_populates='product')
 
     def to_dict(self):
         return {
             'id': self.id,
             'userId': self.user_id,
-            'categoryId': self.category_id,
+            'category': self.category.value,
             'name': self.name,
             'description': self.description,
             'price': self.price,
@@ -45,29 +51,4 @@ class Product(db.Model):
             'secondaryImg': self.secondary_img,
             'createdAt': self.created_at,
             'updatedAt': self.updated_at,
-            # 'variants': [variant.to_dict() for variant in self.variants]
-            # include variants in product model
         }
-
-
-# class ProductVariant(db.Model):
-#     __tablename__ = 'product_variants'
-
-#     if environment == "production":
-#         __table_args__ = {'schema': SCHEMA}
-
-#     id = db.Column(db.Integer, primary_key=True)
-#     product_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('products.id')))
-#     size = db.Column(db.Enum(ProductSize), nullable=False)
-#     price = db.Column(db.Numeric(precision=10, scale=2), nullable=False)
-
-#     # relationships
-#     product = db.relationship('Product', back_populates='variants')
-
-#     def to_dict(self):
-#         return {
-#             'id': self.id,
-#             'productId': self.product_id,
-#             'size': self.size.value,
-#             'price': self.price,
-#         }
