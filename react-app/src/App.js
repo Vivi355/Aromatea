@@ -6,7 +6,7 @@ import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 
-// import ProtectedRoute from "./components/auth/ProtectedRoute";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
 import { ProductsIndex } from "./components/Products/ProductsIndex";
 import { ProductDetail } from "./components/Products/ProductDetail";
 // import CreateProduct from "./components/Products/CreateProduct";
@@ -27,9 +27,9 @@ function App() {
           <Route exact path="/products/all">
             <ProductsIndex />
           </Route>
-          <Route exact path="/products/new">
+          <ProtectedRoute path="/products/new">
             <CreateForm />
-          </Route>
+          </ProtectedRoute>
           <Route exact path="/products/:productId">
             <ProductDetail />
           </Route>

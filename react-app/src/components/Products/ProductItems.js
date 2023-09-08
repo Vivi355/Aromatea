@@ -21,7 +21,7 @@ export const ProductItem = ({product}) => {
                             {product.name}
                         </div>
                         <div className="product-price">
-                            from ${product.variants[1].price}
+                            ${product.price}
                         </div>
                     </div>
                 </div>

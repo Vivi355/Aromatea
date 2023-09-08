@@ -1,8 +1,10 @@
 from flask import Blueprint, jsonify, session, request
 from flask_login import login_required, current_user
-from sqlalchemy.orm import joinedload
-from app.models import Product, ProductVariant, ProductSize, db
-from app.forms import CreateProductForm
+# from sqlalchemy.orm import joinedload
+from app.models import Product, ProductSize, db
+from app.forms import CreateProductForm, VariantForm
+
+from werkzeug.datastructures import MultiDict
 
 product_routes = Blueprint('products', __name__)
 
@@ -13,8 +15,8 @@ def all_products():
     """
     Products homepage displays all products
     """
-    # joinedLoad joins product and productVariants table in one query
-    products = Product.query.options(joinedload(Product.variants)).all()
+    # query all products
+    products = Product.query.all()
 
     if not products:
         return {'error': 'No products found'}
@@ -26,7 +28,7 @@ def all_products():
 @product_routes.route('/<int:id>')
 def one_product(id):
     """
-    Query for a product by id and return product in a dictionary
+    Query for a product by id
     """
     one_product = Product.query.get(id)
 
@@ -43,11 +45,16 @@ def create_product():
     """
     Create a new product
     """
-    form = CreateProductForm()
+    # form = CreateProductForm()
+
+    form = CreateProductForm(data=request.json)
     form['csrf_token'].data = request.cookies['csrf_token']
-    print('Route is being hit!!!!!!!!!!!!!', request.json)
+
+    print('form variants data', form.variants.data)
+    print("request data!!!!!!!!", request.json)
+    print("FORM DATA!!!!!!!!", form.data)
     if form.validate_on_submit():
-        print("LINE 49!!!!!!!!!!!!!")
+        print(" IN THE FORM SUBMIT!!!!!!!!!!!!!!!!!!!!!!")
         new_product = Product(
             user_id=current_user.id,
             category_id=form.data['category_id'],
@@ -57,20 +64,15 @@ def create_product():
             secondary_img=form.data['secondary_img'],
         )
         # new variant add to the new product
-        new_variant = ProductVariant(
-            # size=form.data['size'],
-            # price=form.data['price']
-            size=form.data['variants'][0]['size'],
-            price=form.data['variants'][0]['price']
-        )
-        # append to new_product vairants attribute
-        new_product.variants.append(new_variant)
+        for variant_data in form.variants.data:
+            variant = ProductVariant(size=variant_data['size'], price=variant_data['price'])
+            new_product.variants.append(variant)
 
         db.session.add(new_product)
         db.session.commit()
         return new_product.to_dict()
     print('Form errors', form.errors)
-    return {'errors': form.errors}, 401
+    return {'errors': form.errors, 'form_data': form.data}, 400
 
 
 # edit product route

@@ -9,21 +9,16 @@ export const ProductDetail = () => {
     const {productId} = useParams();
     const product = useSelector(state => state.products.singleProduct);
     // console.log(product);
-    const [selectedSize, setSelectedSize] = useState(product.variants ? product.variants[0] : null);
-    console.log(selectedSize);
+    // const [selectedSize, setSelectedSize] = useState(product.variants ? product.variants[0] : null);
+    // console.log(selectedSize);
 
     useEffect(() => {
-        dispatch(thunkGetSingleProduct(productId)).then(yesProduct => {
-
-            if (yesProduct.variants && yesProduct.variants.length > 0) {
-                setSelectedSize(yesProduct.variants[0])
-            }
-        })
+        dispatch(thunkGetSingleProduct(productId));
     }, [dispatch, productId])
 
-    const handleSizeClick = (variant) => {
-        setSelectedSize(variant)
-    }
+    // const handleSizeClick = (variant) => {
+    //     setSelectedSize(variant)
+    // }
 
     if (!product || Object.keys(product).length === 0) return null;
 
@@ -47,14 +42,15 @@ export const ProductDetail = () => {
                 <div id="single-right">
                     <div className="name-price">
                         <div className="detail-name">{product.name}</div>
-                        <div className="detail-price">${selectedSize?.price}</div>
+                        <div className="detail-price">${product.price}</div>
                     </div>
                     <div className="product-description">
                         {product.description}
                     </div>
                     <div className="product-size">
                         <hr></hr>
-                        SIZE: {product.variants && product.variants.map(variant => (
+                        SIZE: {product.size}
+                        {/* {product.variants && product.variants.map(variant => (
                         <span
                             key={variant.id}
                             onClick={() => handleSizeClick(variant)}
@@ -62,11 +58,11 @@ export const ProductDetail = () => {
                         >
                             {variant.size}
                         </span>
-                    ))}
+                    ))} */}
                         <hr></hr>
                     </div>
                     <div className="addcart-btn">
-                        <button>ADD TO CART <span>&#183;</span> ${selectedSize?.price} </button></div>
+                        <button>ADD TO CART <span>&#183;</span> ${product.price} </button></div>
                 </div>
             </div>
         </div>

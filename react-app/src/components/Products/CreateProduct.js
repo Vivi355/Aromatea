@@ -12,7 +12,7 @@ function CreateProduct({ product, formType }) {
     const [description, setDescription] = useState(product ? product.description : '')
     const [primaryImg, setPrimaryImg] = useState(product ? product.primaryImg : '')
     const [secondaryImg, setSecondaryImg] = useState(product ? product.secondaryImg : '')
-    const [size, setSize] = useState('')
+    const [size, setSize] = useState('1 Pound')
     const [price, setPrice] = useState('')
     const [categories, setCategories] = useState([])
     const [selectCategory, setSelectCategory] = useState("")
@@ -71,6 +71,8 @@ function CreateProduct({ product, formType }) {
             // size: variant.size,
             // price: variant.price
         }
+        console.log("Sending data to server:", newProduct);
+
 
 
         let updateProduct;
