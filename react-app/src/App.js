@@ -11,6 +11,8 @@ import { ProductsIndex } from "./components/Products/ProductsIndex";
 import { ProductDetail } from "./components/Products/ProductDetail";
 // import CreateProduct from "./components/Products/CreateProduct";
 import CreateForm from "./components/Products/CreateForm";
+import EditForm from "./components/Products/EditForm";
+import UserProducts from "./components/Products/UserProducts";
 
 function App() {
   const dispatch = useDispatch();
@@ -29,6 +31,12 @@ function App() {
           </Route>
           <ProtectedRoute path="/products/new">
             <CreateForm />
+          </ProtectedRoute>
+          <ProtectedRoute path="/products/current">
+            <UserProducts />
+          </ProtectedRoute>
+          <ProtectedRoute path="/products/:productId/edit">
+            <EditForm />
           </ProtectedRoute>
           <Route exact path="/products/:productId">
             <ProductDetail />

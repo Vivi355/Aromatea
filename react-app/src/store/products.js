@@ -3,6 +3,7 @@ const GET_SINGLE_PRODUCTS = "products/GET_SINGLE"
 const CREATE_PRODUCT = "product/CREATE_PRODUCT"
 const EDIT_PRODUCT = "product/EDIT_PRODUCT"
 const DELETE_PRODUCT = "product/DELETE_PRODUCT"
+const CURRENT_USER_PRODUCTS = "products/CURRENT_USER_PRODUCTS"
 
 /****************************action types ***************************/
 const getAllProducts = (products) => ({
@@ -28,6 +29,11 @@ const updateProduct = (product) => ({
 const deleteProduct = (productId) => ({
     type: DELETE_PRODUCT,
     productId
+})
+
+const getCurrentUserProducts = (products) => ({
+    type: CURRENT_USER_PRODUCTS,
+    products
 })
 
 
@@ -95,9 +101,18 @@ export const thunkUpdateProduct = (product) => async (dispatch) => {
     }
 }
 
+export const thunkCurrentUserProducts = () => async (dispatch) => {
+    const res = await fetch('/api/products/current');
+
+    if (res.ok) {
+        const {products: products} = await res.json();
+        dispatch(getCurrentUserProducts(products));
+    }
+}
+
 
 /************************** Reducer ***********************/
-const initialState = {allProducts: {}, singleProduct: {}};
+const initialState = {allProducts: {}, singleProduct: {}, userProducts: {}};
 
 const productsReducer = (state = initialState, action) => {
     let newState;
@@ -123,6 +138,19 @@ const productsReducer = (state = initialState, action) => {
                 ...state,
                 allProducts: {...state.allProducts, [action.product.id]: {...action.product}},
                 singleProduct: {...action.product}
+            }
+        case CURRENT_USER_PRODUCTS:
+            console.log("In CURRENT_USER_PRODUCTS with products:", action.products);
+            if (action.products && Object.keys(action.products).length) {
+                return {
+                    ...state,
+                    userProducts: {
+                        ...state.userProducts,
+                        ...action.products
+                    }
+                };
+            } else {
+                return state;
             }
         default:
             return state;

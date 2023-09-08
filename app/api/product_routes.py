@@ -7,6 +7,15 @@ from app.forms import CreateProductForm
 
 product_routes = Blueprint('products', __name__)
 
+# current user products
+@product_routes.route('/current')
+@login_required
+def user_all_products():
+    """"
+    Display all current user's products
+    """
+    products = Product.query.filter(Product.user_id == current_user.id).all()
+    return {'products': [product.to_dict() for product in products]}
 
 # all products route
 @product_routes.route('/all')
@@ -55,11 +64,7 @@ def create_product():
         except ValueError:
             return {'errors': ['Invalid price value']}, 400
 
-    print("request data!!!!!!!!", request.json)
-    print("FORM DATA!!!!!!!!", form.data)
-    print("Form Errors before validation!!!!!!!!!", form.errors)
     if form.validate_on_submit():
-        print(" IN THE FORM SUBMIT!!!!!!!!!!!!!!!!!!!!!!")
         new_product = Product(
             user_id=current_user.id,
             category=CategoryEnum(form.data['category']),
@@ -83,22 +88,21 @@ def create_product():
 @login_required
 def update_product(id):
     """
-    Edit the product
+    Edit the product based on id
     """
     form = CreateProductForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
         product_to_edit = Product.query.get(id)
+        product_to_edit.category=CategoryEnum(form.data['category'])
         product_to_edit.name = form.data['name']
         product_to_edit.description = form.data['description']
+        product_to_edit.size=ProductSize(form.data['size'])
+        product_to_edit.price=form.data['price']
         product_to_edit.primary_img = form.data['primary_img']
         product_to_edit.secondary_img = form.data['secondary_img']
 
-        # edit variants
-        variant = product_to_edit.variants[0] # grab the first variant
-        variant.size = form.data['size']
-        variant.price = form.data['price']
 
         db.session.commit()
         return product_to_edit.to_dict()

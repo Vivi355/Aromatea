@@ -37,6 +37,9 @@ function UserProfileDropdown({ user }) {
                         Hi! {user?.firstName}
                     </div>
                     <div>
+                        <NavLink to="/products/current" onClick={() => setShowMenu(false)}>My Products</NavLink>
+                    </div>
+                    <div className="new-product-link">
                         <NavLink to="/products/new">Create new product</NavLink>
                     </div>
                     <div>

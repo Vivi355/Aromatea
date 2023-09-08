@@ -81,8 +81,11 @@ function CreateProduct({ product, formType }) {
 
     return (
         <div id="product-form-container">
-            <h2>{product ? "Update Product" : "Create Product"}</h2>
+            {/* <h2>{product ? "Update Product" : "Create Product"}</h2> */}
             <form onSubmit={handleSubmit}>
+                <div>
+                    <h2>{formType}</h2>
+                </div>
                 <input
                     type="text"
                     placeholder="Product Name"
@@ -150,7 +153,7 @@ function CreateProduct({ product, formType }) {
                 {errors.secondaryImg && <p className="error">{errors.secondaryImg}</p>}
 
 
-                <button type="submit">Submit</button>
+                <button type="submit">{formType}</button>
             </form>
 
         </div>

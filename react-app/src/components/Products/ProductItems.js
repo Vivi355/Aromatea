@@ -1,7 +1,8 @@
 import React from "react"
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export const ProductItem = ({product}) => {
+    const location = useLocation();
 
     return (
         <div>
@@ -11,12 +12,15 @@ export const ProductItem = ({product}) => {
                         <Link to={`/products/${product.id}`}>
                             <img src={product.primaryImg} alt={product.name}></img>
                         </Link>
+                        {location.pathname === '/products/current' && (
+                            <div className="product-btns">
+                                <button>Edit</button>
+                                <button>Delete</button>
+                            </div>
+                        )}
                     </div>
 
                     <div className="product-detail">
-                        {/* <div className="product-description">
-                            {product.description}
-                        </div> */}
                         <div className="product-name">
                             {product.name}
                         </div>
