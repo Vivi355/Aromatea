@@ -9,6 +9,8 @@ import Navigation from "./components/Navigation";
 // import ProtectedRoute from "./components/auth/ProtectedRoute";
 import { ProductsIndex } from "./components/Products/ProductsIndex";
 import { ProductDetail } from "./components/Products/ProductDetail";
+// import CreateProduct from "./components/Products/CreateProduct";
+import CreateForm from "./components/Products/CreateForm";
 
 function App() {
   const dispatch = useDispatch();
@@ -24,6 +26,9 @@ function App() {
         <Switch>
           <Route exact path="/products/all">
             <ProductsIndex />
+          </Route>
+          <Route exact path="/products/new">
+            <CreateForm />
           </Route>
           <Route exact path="/products/:productId">
             <ProductDetail />
