@@ -1,0 +1,30 @@
+h1 {
+    text-align: center;
+}
+
+#login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#login-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 300px;
+    align-items: center;
+}
+
+#login-container input {
+    width: 250px;
+    height: 30px;
+}
+
+.required:before {
+    content: "*";
+    color: red;
+}
