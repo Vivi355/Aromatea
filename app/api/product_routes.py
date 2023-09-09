@@ -1,6 +1,5 @@
 from flask import Blueprint, jsonify, session, request
 from flask_login import login_required, current_user
-# from sqlalchemy.orm import joinedload
 from app.models import Product, ProductSize, db, CategoryEnum
 from app.forms import CreateProductForm
 

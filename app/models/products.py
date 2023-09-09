@@ -35,7 +35,7 @@ class Product(db.Model):
 
     # relatioships
     user = db.relationship('User', back_populates='products')
-    # category = db.relationship('Category', back_populates='products')
+    carts = db.relationship('Cart', back_populates='product')
 
 
     def to_dict(self):
