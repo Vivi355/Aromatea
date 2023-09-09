@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom"
 import "./CreateProduct.css"
 import { thunkCreateProduct, thunkUpdateProduct } from "../../store/products";
@@ -18,7 +18,7 @@ function CreateProduct({ product, formType }) {
         ONE_POUND: "1 Pound",
         QUARTER_POUND: "1/4 Pound"
     }
-    const [size, setSize] = useState(Object.values(SIZES_ENUM))
+    // const [size, setSize] = useState(Object.values(SIZES_ENUM))
     const [selectSize, setSelectSize] = useState("")
 
     const CATEGORIES_ENUM = {
@@ -62,18 +62,16 @@ function CreateProduct({ product, formType }) {
             price,
             category: selectCategory,
         }
-        console.log("Sending data to server:", newProduct);
-
 
 
         let updateProduct;
         if (formType === "Create Product") {
-            console.log("About to dispatch thunkCreateProduct...");
             updateProduct = await dispatch(thunkCreateProduct(newProduct))
-            console.log('after dispatch', updateProduct);
             history.push(`/products/${updateProduct.id}`);
         } else if (formType === 'Update Product') {
+            console.log("before dispatch update product");
             updateProduct = await dispatch(thunkUpdateProduct({...newProduct, id: product.id}));
+            console.log("Returned from thunkUpdateProduct:", updateProduct);
             history.push(`/products/${updateProduct.id}`);
         }
     }

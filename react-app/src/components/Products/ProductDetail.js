@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams, NavLink, useHistory } from "react-router-dom";
+import { useParams, NavLink } from "react-router-dom";
 import { thunkGetSingleProduct } from "../../store/products";
 import './ProductDetail.css'
 

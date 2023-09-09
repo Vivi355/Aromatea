@@ -120,4 +120,5 @@ def delete_product(id):
     to_delete = Product.query.get(id)
     db.session.delete(to_delete)
     db.session.commit()
+    # return to_delete.to_dict()
     return {"Message": "Product Deleted Successfully"}

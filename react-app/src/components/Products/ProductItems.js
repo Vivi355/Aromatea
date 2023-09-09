@@ -1,8 +1,17 @@
 import React from "react"
 import { Link, useLocation } from "react-router-dom";
+import { useModal } from "../../context/Modal";
+import { DeleteProduct } from "./DeleteProductModal";
 
 export const ProductItem = ({product}) => {
     const location = useLocation();
+    const {openModal} = useModal();
+
+    // delete modal
+    const deleteClick = (productId) => {
+        openModal(<DeleteProduct productId={productId} />)
+    }
+
 
     return (
         <div>
@@ -14,8 +23,10 @@ export const ProductItem = ({product}) => {
                         </Link>
                         {location.pathname === '/products/current' && (
                             <div className="product-btns">
-                                <button>Edit</button>
-                                <button>Delete</button>
+                                <Link to={`/products/${product.id}/edit`}>Edit</Link>
+                                <button
+                                    onClick={() => deleteClick(product.id)}
+                                >Delete</button>
                             </div>
                         )}
                     </div>

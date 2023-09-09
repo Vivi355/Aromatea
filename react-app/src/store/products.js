@@ -50,7 +50,6 @@ export const thunkGetAllProducts = () => async (dispatch) => {
 
 export const thunkGetSingleProduct = (id) => async (dispatch) => {
     const res = await fetch(`/api/products/${id}`);
-    console.log('thunk single id', id);
 
     if (res.ok) {
         const product = await res.json();
@@ -64,7 +63,6 @@ export const thunkGetSingleProduct = (id) => async (dispatch) => {
 }
 
 export const thunkCreateProduct = (product) => async (dispatch) => {
-    console.log('in the create thunk', product);
     const res = await fetch(`/api/products/new`, {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
@@ -85,7 +83,6 @@ export const thunkCreateProduct = (product) => async (dispatch) => {
 }
 
 export const thunkUpdateProduct = (product) => async (dispatch) => {
-    console.log(' in the thunk update', product);
     const res = await fetch(`/api/products/${product.id}/edit`, {
         method: "PUT",
         headers: {'Content-Type': 'application/json'},
@@ -93,11 +90,22 @@ export const thunkUpdateProduct = (product) => async (dispatch) => {
     })
 
     if (res.ok) {
-        const data = await res.json()
-        dispatch(updateProduct(data))
+        const data = await res.json();
+        dispatch(updateProduct(data));
+        return data;
     } else {
         const error = await res.json()
         throw error
+    }
+}
+
+export const thunkDeleteProduct = (productId) => async (dispatch) => {
+    const res = await fetch(`/api/products/delete/${productId}`, {
+        method: 'DELETE',
+    })
+
+    if (res.ok) {
+        await dispatch(deleteProduct(productId))
     }
 }
 
@@ -140,18 +148,22 @@ const productsReducer = (state = initialState, action) => {
                 singleProduct: {...action.product}
             }
         case CURRENT_USER_PRODUCTS:
-            console.log("In CURRENT_USER_PRODUCTS with products:", action.products);
             if (action.products && Object.keys(action.products).length) {
                 return {
                     ...state,
                     userProducts: {
-                        ...state.userProducts,
                         ...action.products
                     }
                 };
             } else {
                 return state;
             }
+        case DELETE_PRODUCT:
+            newState = { ...state, allProducts: { ...state.allProducts }, singleProduct: { ...state.singleProduct }, userProducts: { ...state.userProducts } }
+            delete newState.allProducts[action.productId]
+            delete newState.userProducts[action.productId]
+            delete newState.singleProduct;
+            return { ...newState, allProducts: { ...newState.allProducts }, userProducts: { ...newState.userProducts }, singleProduct: { ...newState.singleProduct } };
         default:
             return state;
     }

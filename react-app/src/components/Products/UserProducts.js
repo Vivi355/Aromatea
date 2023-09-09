@@ -13,6 +13,7 @@ const UserProducts = () => {
         dispatch(thunkCurrentUserProducts());
     }, [dispatch])
 
+
     return (
         <div id="my-product-page">
             <div>
