@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import './LoginForm.css';
 import { NavLink } from "react-router-dom";
+import * as sessionActions from "../../store/session"
+import { useHistory } from "react-router-dom";
 
 function LoginFormPage() {
   const dispatch = useDispatch();
@@ -11,8 +13,19 @@ function LoginFormPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
+  const history = useHistory()
 
   if (sessionUser) return <Redirect to="/" />;
+
+  const loginDemoUser = () => {
+    const email = 'demo@aa.io'
+    const password = 'password'
+    return dispatch(sessionActions.login(email, password))
+      .then(() => history.push('/products/all'))
+      .catch(async (res) => {
+            const data = await res.json();
+          });
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -60,9 +73,9 @@ function LoginFormPage() {
               Create an Account
             </NavLink>
           </div>
-          <div>
+          <button id="demo" onClick={loginDemoUser}>
             Demo User
-          </div>
+          </button>
 
         </div>
       </form>

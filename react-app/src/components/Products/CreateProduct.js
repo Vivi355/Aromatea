@@ -12,7 +12,7 @@ function CreateProduct({ product, formType }) {
     const [description, setDescription] = useState(product ? product.description : '')
     const [primaryImg, setPrimaryImg] = useState(product ? product.primaryImg : '')
     const [secondaryImg, setSecondaryImg] = useState(product ? product.secondaryImg : '')
-    const [price, setPrice] = useState('')
+    const [price, setPrice] = useState("")
 
     const SIZES_ENUM = {
         ONE_POUND: "1 Pound",
@@ -45,7 +45,8 @@ function CreateProduct({ product, formType }) {
             errors.secondaryImg = 'Image URL must end with .png, .jpg, or .jpeg';
           }
 
-        if (price && isNaN(price)) errors.price = "Price is required"
+          if (!price || isNaN(price) || price < 1) errors.price = "Price must be greater than 0";
+
 
         setErrors(errors)
     }, [name, description, primaryImg, secondaryImg, price])
@@ -78,29 +79,34 @@ function CreateProduct({ product, formType }) {
 
 
     return (
-        <div id="product-form-container">
-            {/* <h2>{product ? "Update Product" : "Create Product"}</h2> */}
-            <form onSubmit={handleSubmit}>
+        <form id="product-form" onSubmit={handleSubmit}>
+            <div id="product-form-container">
                 <div>
                     <h2>{formType}</h2>
                 </div>
-                <input
-                    type="text"
-                    placeholder="Product Name"
-                    value={name}
-                    onChange={e => setName(e.target.value)}
-                    required
-                />
-                {errors.name && <p className="error">{errors.name}</p>}
 
-                <textarea
-                    type="textarea"
-                    placeholder="Product Description"
-                    value={description}
-                    onChange={e => setDescription(e.target.value)}
-                    required
-                />
+                {errors.name && <p className="error">{errors.name}</p>}
+                <label className="required">
+                    <input
+                        type="text"
+                        placeholder="Product Name"
+                        value={name}
+                        onChange={e => setName(e.target.value)}
+                        required
+                    />
+                </label>
+
                 {errors.description && <p className="error">{errors.description}</p>}
+                <label className="required">
+                    <textarea
+                        type="textarea"
+                        placeholder="Product Description"
+                        value={description}
+                        onChange={e => setDescription(e.target.value)}
+                        required
+                    />
+
+                </label>
 
                 <select
                     value={selectSize}
@@ -113,14 +119,17 @@ function CreateProduct({ product, formType }) {
                     ))}
                 </select>
 
-                <input
-                    type="number"
-                    placeholder="Price"
-                    value={price}
-                    onChange={e => setPrice(e.target.value)}
-                    required
-                />
                 {errors.price && <p className="error">{errors.price}</p>}
+                <label className="required">
+                    <input
+                        type="number"
+                        placeholder="Price"
+                        value={price}
+                        onChange={e => setPrice(e.target.value)}
+                        required
+                    />
+
+                </label>
 
                 <select
                     value={selectCategory}
@@ -133,28 +142,29 @@ function CreateProduct({ product, formType }) {
                     ))}
                 </select>
 
-                <input
-                    type="text"
-                    placeholder="Product Image URL"
-                    value={primaryImg}
-                    onChange={e => setPrimaryImg(e.target.value)}
-                    required
-                />
                 {errors.primaryImg && <p className="error">{errors.primaryImg}</p>}
+                <label className="required">
+                    <input
+                        type="text"
+                        placeholder="Product Image URL"
+                        value={primaryImg}
+                        onChange={e => setPrimaryImg(e.target.value)}
+                        required
+                    />
+                </label>
 
+                {errors.secondaryImg && <p className="error">{errors.secondaryImg}</p>}
                 <input
                     type="text"
                     placeholder="Product Image URL"
                     value={secondaryImg}
                     onChange={e => setSecondaryImg(e.target.value)}
                 />
-                {errors.secondaryImg && <p className="error">{errors.secondaryImg}</p>}
-
 
                 <button type="submit">{formType}</button>
-            </form>
 
-        </div>
+            </div>
+        </form>
     )
 }
 

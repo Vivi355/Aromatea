@@ -13,6 +13,7 @@ import { ProductDetail } from "./components/Products/ProductDetail";
 import CreateForm from "./components/Products/CreateForm";
 import EditForm from "./components/Products/EditForm";
 import UserProducts from "./components/Products/UserProducts";
+import LandingPage from "./components/LandingPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -26,6 +27,9 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
+          <Route exact path="/">
+            <LandingPage />
+          </Route>
           <Route exact path="/products/all">
             <ProductsIndex />
           </Route>

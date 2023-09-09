@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory  } from "react-router-dom";
 import { logout } from "../../store/session";
 
 function UserProfileDropdown({ user }) {
     const dispatch = useDispatch();
     const [showMenu, setShowMenu] = useState(false);
     const dropdownRef = useRef();
+    const history = useHistory()
 
     useEffect(() => {
         const closeMenu = (e) => {
@@ -24,6 +25,7 @@ function UserProfileDropdown({ user }) {
     const handleLogout = (e) => {
         e.preventDefault();
         dispatch(logout());
+        history.push('/')
     };
 
     return (
@@ -43,7 +45,9 @@ function UserProfileDropdown({ user }) {
                         <NavLink to="/products/new">Create new product</NavLink>
                     </div>
                     <div>
-                        <button onClick={handleLogout}>Log Out</button>
+                        <button
+                        onClick={handleLogout}
+                        >Log Out</button>
                     </div>
                 </ul>
             )}
