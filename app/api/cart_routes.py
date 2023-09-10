@@ -50,33 +50,36 @@ def add_products():
 
 
 # update qty of a product
-@cart_routes.route('/<int:productId>', methods=['PUT'])
+@cart_routes.route('/<int:cartItemId>', methods=['PUT'])
 @login_required
-def update_qty(productId):
+def update_qty(cartItemId):
     """
     Update product quantity in the cart
     """
     data = request.json
     qty = data.get('qty')
 
-    cart_product = Cart.query.filter_by(user_id=current_user.id, product_id=productId).first()
+
+    cart_product = Cart.query.filter_by(user_id=current_user.id, id=cartItemId).first()
 
     if cart_product:
         cart_product.qty = qty
         db.session.commit()
-        return cart_product.to_dict()
+        result = cart_product.to_dict()
+        return result
+        # return cart_product.to_dict()
     else:
         return {'error': 'Product not found in cart'}
 
 
 # delete product from cart
-@cart_routes.route('/<int:productId>', methods=['DELETE'])
+@cart_routes.route('/<int:cartItemId>', methods=['DELETE'])
 @login_required
-def delete_product_cart(productId):
+def delete_product_cart(cartItemId):
     """
     Delete a product from the cart
     """
-    cart_product = Cart.query.filter_by(user_id=current_user.id, product_id=productId).first()
+    cart_product = Cart.query.filter_by(user_id=current_user.id, id=cartItemId).first()
 
     if cart_product:
         db.session.delete(cart_product)

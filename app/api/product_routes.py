@@ -40,7 +40,7 @@ def one_product(id):
     one_product = Product.query.get(id)
 
     if not one_product:
-        return {'error': 'Product not found'}
+        return {'error': 'Product not found'}, 404
 
     return one_product.to_dict()
 

@@ -31,7 +31,9 @@ function Navigation({ isLoaded }){
 							<NavLink to="/login">ACCOUNT</NavLink>
 						}
 					</div>
-					<div>CART</div>
+					<div>
+						<NavLink to="/cart">CART</NavLink>
+					</div>
 					{/* {isLoaded && (
 						<div>
 							<ProfileButton user={sessionUser} />

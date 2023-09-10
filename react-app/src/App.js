@@ -14,6 +14,7 @@ import CreateForm from "./components/Products/CreateForm";
 import EditForm from "./components/Products/EditForm";
 import UserProducts from "./components/Products/UserProducts";
 import LandingPage from "./components/LandingPage";
+import CartPage from "./components/CartPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -45,6 +46,9 @@ function App() {
           <Route exact path="/products/:productId">
             <ProductDetail />
           </Route>
+          <ProtectedRoute exact path="/cart">
+            <CartPage />
+          </ProtectedRoute>
           <Route exact path="/login" >
             <LoginFormPage />
           </Route>

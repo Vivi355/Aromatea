@@ -2,23 +2,26 @@ import React, {useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, NavLink } from "react-router-dom";
 import { thunkGetSingleProduct } from "../../store/products";
+import { thunkAddProduct } from "../../store/carts";
 import './ProductDetail.css'
 
 export const ProductDetail = () => {
     const dispatch = useDispatch();
     const {productId} = useParams();
     const product = useSelector(state => state.products.singleProduct);
-    // console.log(product);
-    // const [selectedSize, setSelectedSize] = useState(product.variants ? product.variants[0] : null);
-    // console.log(selectedSize);
 
     useEffect(() => {
         dispatch(thunkGetSingleProduct(productId));
     }, [dispatch, productId])
 
-    // const handleSizeClick = (variant) => {
-    //     setSelectedSize(variant)
-    // }
+    // handle click for product add to cart
+    const handleAddToCart = () => {
+        const productAdd = {
+            productId: product.id,
+            qty: 1
+        };
+        dispatch(thunkAddProduct(productAdd))
+    }
 
     if (!product || Object.keys(product).length === 0) return null;
 
@@ -36,8 +39,6 @@ export const ProductDetail = () => {
                     <img src={product.primaryImg} alt={product.name} style={{paddingBottom: "10px"}}></img>
                     {product.secondaryImg ? <img src={product.secondaryImg} alt={product.name}></img> : null}
                 </div>
-                {/* <div className="second-image">
-                </div> */}
 
                 <div id="single-right">
                     <div className="name-price">
@@ -50,19 +51,10 @@ export const ProductDetail = () => {
                     <div className="product-size">
                         <hr></hr>
                         SIZE: {product.size}
-                        {/* {product.variants && product.variants.map(variant => (
-                        <span
-                            key={variant.id}
-                            onClick={() => handleSizeClick(variant)}
-                            style={{cursor: "pointer"}}
-                        >
-                            {variant.size}
-                        </span>
-                    ))} */}
                         <hr></hr>
                     </div>
                     <div className="addcart-btn">
-                        <button>ADD TO CART <span>&#183;</span> ${product.price} </button></div>
+                        <button onClick={handleAddToCart}>ADD TO CART <span>&#183;</span> ${product.price} </button></div>
                 </div>
             </div>
         </div>

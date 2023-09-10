@@ -49,16 +49,21 @@ export const thunkGetAllProducts = () => async (dispatch) => {
 }
 
 export const thunkGetSingleProduct = (id) => async (dispatch) => {
-    const res = await fetch(`/api/products/${id}`);
+    try {
+        const res = await fetch(`/api/products/${id}`);
 
-    if (res.ok) {
-        const product = await res.json();
-        dispatch(getSingleProduct(product));
-        return product
+        if (res.ok) {
+            const product = await res.json();
+            dispatch(getSingleProduct(product));
+            return product
 
-    } else {
-        const errors = await res.json()
-        throw errors
+        } else {
+            const errorData = await res.json();
+            throw new Error(errorData.message || 'Failed to fetch product')
+        }
+
+    } catch (error) {
+        console.error('Failed to fetch single product:', error);
     }
 }
 
