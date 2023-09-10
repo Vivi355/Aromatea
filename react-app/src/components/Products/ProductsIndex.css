@@ -19,6 +19,7 @@
 }
 
 .first-img {
+    position: relative;
     height: 230px;
     /* width: 100%; */
     width: 230px;

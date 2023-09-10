@@ -1,0 +1,30 @@
+#user-products-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+    margin-bottom: 400px;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-btns {
+    display: none;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    width: 280px;
+    color: white;
+    text-align: center;
+    padding: 5px 0;
+}
+
+.single-product {
+    position: relative;
+}
+
+.single-product:hover .product-btns {
+    display: block;
+    /* opacity: 1; */
+}

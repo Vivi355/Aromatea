@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom"
 import "./CreateProduct.css"
 import { thunkCreateProduct, thunkUpdateProduct } from "../../store/products";
@@ -12,33 +12,32 @@ function CreateProduct({ product, formType }) {
     const [description, setDescription] = useState(product ? product.description : '')
     const [primaryImg, setPrimaryImg] = useState(product ? product.primaryImg : '')
     const [secondaryImg, setSecondaryImg] = useState(product ? product.secondaryImg : '')
-    const [size, setSize] = useState('')
-    const [price, setPrice] = useState('')
-    const [categories, setCategories] = useState([])
+    const [price, setPrice] = useState("")
+
+    const SIZES_ENUM = {
+        ONE_POUND: "1 Pound",
+        QUARTER_POUND: "1/4 Pound"
+    }
+    // const [size, setSize] = useState(Object.values(SIZES_ENUM))
+    const [selectSize, setSelectSize] = useState("")
+
+    const CATEGORIES_ENUM = {
+    BLACK: "BLACK",
+    GREEN: "GREEN",
+    WHITE: "WHITE",
+    BOTANICAL: "BOTANICAL",
+    OOLONG: "OOLONG"
+    };
+    const [categories, setCategories] = useState(Object.values(CATEGORIES_ENUM))
     const [selectCategory, setSelectCategory] = useState("")
 
     const [errors, setErrors] = useState({});
 
-    // fetch categories
-    useEffect(() => {
-        async function fetchCate() {
-            const res = await fetch('/api/categories');
-            if (res.ok) {
-                const data = await res.json()
-                setCategories(data.categories)
-            } else {
-                const error = await res.json()
-                // add error to the state
-                setErrors(prev => ({ ...prev, fetchCate: error.message }))
-            }
-        }
-        fetchCate();
-    }, [])
 
     useEffect(() => {
         const errors = {}
         if (name && name.length < 3) errors.name = "Name is required"
-        if (description && description.length < 10) errors.description = "Description must have 10 or more characters"
+        if (description && description.length < 5) errors.description = "Description must have 5 or more characters"
         if (primaryImg && !primaryImg.endsWith('.png') && !primaryImg.endsWith('.jpg') && !primaryImg.endsWith('.jpeg')) {
             errors.primaryImg = 'Image URL must end with .png, .jpg, or .jpeg';
           }
@@ -46,7 +45,8 @@ function CreateProduct({ product, formType }) {
             errors.secondaryImg = 'Image URL must end with .png, .jpg, or .jpeg';
           }
 
-        if (price && isNaN(price)) errors.price = "Price is required"
+          if (!price || isNaN(price) || price < 1) errors.price = "Price must be greater than 0";
+
 
         setErrors(errors)
     }, [name, description, primaryImg, secondaryImg, price])
@@ -54,78 +54,82 @@ function CreateProduct({ product, formType }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const variant = {
-            size,
-            price,
-        };
-
         const newProduct = {
             name,
             description,
             primary_img: primaryImg,
             secondary_img: secondaryImg,
-            // size,
-            // price,
-            category_id: selectCategory,
-            variants: [variant],
-            // size: variant.size,
-            // price: variant.price
+            size: selectSize,
+            price,
+            category: selectCategory,
         }
 
 
         let updateProduct;
         if (formType === "Create Product") {
-            console.log("About to dispatch thunkCreateProduct...");
             updateProduct = await dispatch(thunkCreateProduct(newProduct))
-            console.log('after dispatch', updateProduct);
             history.push(`/products/${updateProduct.id}`);
         } else if (formType === 'Update Product') {
+            console.log("before dispatch update product");
             updateProduct = await dispatch(thunkUpdateProduct({...newProduct, id: product.id}));
+            console.log("Returned from thunkUpdateProduct:", updateProduct);
             history.push(`/products/${updateProduct.id}`);
         }
     }
 
 
     return (
-        <div id="product-form-container">
-            <h2>{product ? "Update Product" : "Create Product"}</h2>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    placeholder="Product Name"
-                    value={name}
-                    onChange={e => setName(e.target.value)}
-                    required
-                />
-                {errors.name && <p className="error">{errors.name}</p>}
+        <form id="product-form" onSubmit={handleSubmit}>
+            <div id="product-form-container">
+                <div>
+                    <h2>{formType}</h2>
+                </div>
 
-                <textarea
-                    type="textarea"
-                    placeholder="Product Description"
-                    value={description}
-                    onChange={e => setDescription(e.target.value)}
-                    required
-                />
+                {errors.name && <p className="error">{errors.name}</p>}
+                <label className="required">
+                    <input
+                        type="text"
+                        placeholder="Product Name"
+                        value={name}
+                        onChange={e => setName(e.target.value)}
+                        required
+                    />
+                </label>
+
                 {errors.description && <p className="error">{errors.description}</p>}
+                <label className="required">
+                    <textarea
+                        type="textarea"
+                        placeholder="Product Description"
+                        value={description}
+                        onChange={e => setDescription(e.target.value)}
+                        required
+                    />
+
+                </label>
 
                 <select
-                    value={size}
-                    onChange={e => setSize(e.target.value)}
+                    value={selectSize}
+                    onChange={e => setSelectSize(e.target.value)}
                     required
                 >
                     <option value="" disabled>Product Size</option>
-                    <option value="1 Pound">1 Pound</option>
-                    <option value="1/4 Pound">1/4 Pound</option>
+                    {Object.entries(SIZES_ENUM).map(([sizeKey, sizeValue]) => (
+                    <option key={sizeKey} value={sizeKey}>{sizeValue}</option>
+                    ))}
                 </select>
 
-                <input
-                    type="number"
-                    placeholder="Price"
-                    value={price}
-                    onChange={e => setPrice(e.target.value)}
-                    required
-                />
                 {errors.price && <p className="error">{errors.price}</p>}
+                <label className="required">
+                    <input
+                        type="number"
+                        placeholder="Price"
+                        value={price}
+                        onChange={e => setPrice(e.target.value)}
+                        required
+                    />
+
+                </label>
 
                 <select
                     value={selectCategory}
@@ -134,32 +138,33 @@ function CreateProduct({ product, formType }) {
                 >
                     <option value="" disabled>Select Type</option>
                     {categories.map(category => (
-                        <option key={category.id} value={category.id}>{category.name}</option>
+                        <option key={category} value={category}>{category}</option>
                     ))}
                 </select>
 
-                <input
-                    type="text"
-                    placeholder="Product Image URL"
-                    value={primaryImg}
-                    onChange={e => setPrimaryImg(e.target.value)}
-                    required
-                />
                 {errors.primaryImg && <p className="error">{errors.primaryImg}</p>}
+                <label className="required">
+                    <input
+                        type="text"
+                        placeholder="Product Image URL"
+                        value={primaryImg}
+                        onChange={e => setPrimaryImg(e.target.value)}
+                        required
+                    />
+                </label>
 
+                {errors.secondaryImg && <p className="error">{errors.secondaryImg}</p>}
                 <input
                     type="text"
                     placeholder="Product Image URL"
                     value={secondaryImg}
                     onChange={e => setSecondaryImg(e.target.value)}
                 />
-                {errors.secondaryImg && <p className="error">{errors.secondaryImg}</p>}
 
+                <button type="submit">{formType}</button>
 
-                <button type="submit">Submit</button>
-            </form>
-
-        </div>
+            </div>
+        </form>
     )
 }
 

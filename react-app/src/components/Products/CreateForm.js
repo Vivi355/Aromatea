@@ -7,13 +7,9 @@ const CreateForm = () => {
         description: '',
         primaryImg: '',
         secondaryImg: '',
-        variants: [{
-            size: '',
-            price: '',
-        }],
-        // size: '',
-        // price: '',
-        // variants: [],
+        size: '',
+        price: '',
+        category: '',
     }
 
     return (

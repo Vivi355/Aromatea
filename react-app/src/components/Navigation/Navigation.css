@@ -19,6 +19,9 @@
 
 .profile-dropdown {
   position: absolute;
+  border: 2px solid red;
+  background-color: antiquewhite;
+  z-index: 1000;
 }
 
 .hidden {
