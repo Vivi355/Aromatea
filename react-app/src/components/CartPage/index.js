@@ -16,7 +16,14 @@ function CartPage() {
 
     const fetchProductDetails = async () => {
         let tempCart = Object.values(cart).map(async item => {
+            // console.log('item id', item.productId);
             const productDetails = await dispatch(thunkGetSingleProduct(item.productId));
+
+            if (!productDetails || productDetails.id === undefined) {
+                // console.error(`Product with id ${item.productId} is missing or invalid`);
+                return null;
+            }
+
             return {
                 ...item,
                 product: productDetails
@@ -24,7 +31,7 @@ function CartPage() {
         });
 
         Promise.all(tempCart).then(completedCart => {
-            setDetailCart(completedCart);
+            setDetailCart(completedCart.filter(item => item !== null));
         });
     }
 
