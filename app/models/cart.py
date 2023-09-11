@@ -21,6 +21,18 @@ class Cart(db.Model):
     user = db.relationship('User', back_populates='carts')
     product = db.relationship('Product', back_populates='carts')
 
+    @property
+    def product_name(self):
+        return self.product.name
+
+    @property
+    def product_primaryImg(self):
+        return self.product.primary_img
+
+    @property
+    def product_price(self):
+        return self.product.price
+
 
     def to_dict(self):
         return {
@@ -30,4 +42,7 @@ class Cart(db.Model):
             'qty': self.qty,
             'createdAt': self.created_at,
             'updatedAt': self.updated_at,
+            'name': self.product_name,
+            'primaryImg': self.product.primary_img,
+            'price': self.product_price
         }

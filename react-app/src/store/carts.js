@@ -26,89 +26,93 @@ const removeProduct = (cartItemId) => ({
 
 /************* Thunks ******************************/
 export const thunkLoadProducts = () => async (dispatch, getState) => {
-    const localCart = localStorage.getItem('cart');
-
-    if (localCart) {
-        const parsedCart = JSON.parse(localCart);
-        dispatch(loadProducts(parsedCart));
-
-    } else {
-        const res = await fetch('/api/cart/');
-
-        if (res.ok) {
-            const products = await res.json();
-            localStorage.setItem('cart', JSON.stringify(products));  // Save to local storage
-            dispatch(loadProducts(products));
-        } else {
-            const error = await res.json();
-            throw error;
+    // console.log('IN THE THUNK LOAD PRODUCTS');
+    try {
+        const response = await fetch('/api/cart/');
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
         }
+
+        const data = await response.json();
+
+        // Convert the array of products to an object with product ids as keys
+        const productsObject = {};
+        data.cart.forEach(product => {
+            productsObject[product.id] = product;
+        });
+
+        dispatch(loadProducts(productsObject));
+    } catch (error) {
+        console.error("Error fetching cart items:", error);
     }
-}
+};
 
-export const thunkAddProduct = (product) => async (dispatch, getState) => {
-    const res = await fetch('/api/cart/', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(product)
-    })
 
-    if (res.ok) {
-        const product = await res.json()
-        dispatch(addProduct(product));
-        localStorage.setItem('cart', JSON.stringify(getState().cart.cart))
-        return product;
-    } else {
-        const error = await res.json()
-        throw error
+export const thunkAddProduct = (productId, qty) => async (dispatch, getState) => {
+    // console.log('IN the thunk add product');
+    try {
+        const response = await fetch('/api/cart/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ productId: productId, qty:qty }),
+        });
+
+        if (response.ok) {
+            const product = await response.json();
+            dispatch(addProduct(product));
+        } else {
+            const errors = await response.json()
+            throw errors
+        }
+
+    } catch (error) {
+        console.error("Error adding product to cart:", error);
     }
-}
+};
 
-export const thunkEditQty = (cartItemId, adjustAmount) => async (dispatch, getState) => {
-    // console.log('IN THE EDIT THUNK!!!!!!!!');
-    const cartItems = Object.values(getState().cart.cart);
-    const cartItem = cartItems.find(item => item.id === cartItemId);
+export const thunkEditQty = (cartItemId, qty) => async (dispatch, getState) => {
+    try {
+        const response = await fetch(`/api/cart/${cartItemId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ qty }),
+        });
 
-    if (!cartItem) {
-        console.error("Product not found in cart:", cartItemId);
-        return;
+        if (response.ok) {
+            const updatedProduct = await response.json();
+            dispatch(updateQty(cartItemId, updatedProduct.qty));
+        } else {
+            const errors = await response.json()
+            throw errors
+        }
+
+    } catch (error) {
+        console.error("Error updating product quantity:", error);
     }
-
-    const currQty = cartItem.qty;
-    const newQty = currQty + adjustAmount;
-
-    const res = await fetch(`/api/cart/${cartItemId}`, {
-        method: 'PUT',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({qty: newQty})
-    })
-    // console.log('SERVER RESPONSE', res);
-
-    if (res.ok) {
-        const data = await res.json();
-        dispatch(updateQty(data.id, data.qty))
-        localStorage.setItem('cart', JSON.stringify(getState().cart.cart))
-        return data;
-    } else {
-        const error = await res.json();
-        throw error;
-    }
-}
+};
 
 
 export const thunkDeleteFromCart = (cartItemId) => async(dispatch, getState) => {
-    const res = await fetch(`/api/cart/${cartItemId}`, {
-        method: 'DELETE'
-    })
+    try {
+        const response = await fetch(`/api/cart/${cartItemId}`, {
+            method: 'DELETE',
+        });
 
-    if (res.ok) {
-        await dispatch(removeProduct(cartItemId))
-        localStorage.setItem('cart', JSON.stringify(getState().cart.cart))
-    } else {
-        const error = await res.json()
-        throw error
+        if (response.ok) {
+            dispatch(removeProduct(cartItemId));
+        } else {
+            const errors = await response.json()
+            throw errors
+        }
+
+    } catch (error) {
+        console.error("Error deleting product from cart:", error);
     }
-}
+};
 
 
 /******************* Reducer *******************/
@@ -118,20 +122,19 @@ const cartReducer = (state = initialState, action) => {
     let newState;
     switch(action.type) {
         case LOAD_PRODUCTS:
-            return {
-                ...state,
-                cart: action.products
-            }
-
+            newState = { ...state, cart: { ...state.cart, ...action.products } };
+            return newState;
         case ADD_PRODUCT_TO_CART:
-            newState = {...state, cart: {...state.cart, [action.product.id]: action.product}};
+            // console.log('in the reducer');
+            newState = { ...state };
+            newState.cart[action.product.id] = action.product;
             return newState;
 
         case UPDATE_QTY:
-            // console.log('Inside reducer action', action);
-            if (!state.cart[action.payload.cartItemId]) return state;
-            newState = {...state};
-            newState.cart[action.payload.cartItemId].qty = action.payload.qty;
+            newState = { ...state };
+            if (newState.cart[action.payload.cartItemId]) {
+                newState.cart[action.payload.cartItemId].qty = action.payload.qty;
+            }
             return newState;
 
         case REMOVE_PRODUCT_FROM_CART:

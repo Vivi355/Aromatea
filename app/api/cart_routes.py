@@ -8,12 +8,15 @@ cart_routes = Blueprint('carts', __name__)
 # load products
 @cart_routes.route('/')
 @login_required
-def load_products():
+def user_cart():
     """
     Load all products in the cart for the current user
     """
-    cart_products = Cart.query.filter(Cart.user_id == current_user.id).all()
-    return {'cart': [product.to_dict() for product in cart_products]}
+    carts = Cart.query.filter_by(user_id=current_user.id).all()
+
+    return {
+        'cart': [cart.to_dict() for cart in carts]
+    }
 
 
 # add product to cart
@@ -24,29 +27,20 @@ def add_products():
     Add product to the cart
     """
     data = request.json
-    productId = data.get('productId')
+    product_id = data.get('productId')
     qty = data.get('qty')
 
-    # check if qty is positive int
-    if not isinstance(qty, int) or qty <= 0:
-        return {'error': 'Product quantity must be a positive number'}
-
-    # check of product exists
-    product = Product.query.get(productId)
-    if not product:
-        return {'error': "Product not found"}
-
     # check if product exist in the cart
-    cart_product = Cart.query.filter(and_(Cart.user_id == current_user.id, Cart.product_id == productId)).first()
+    cart_item = Cart.query.filter_by(user_id=current_user.id, product_id=product_id).first()
 
-    if cart_product:
-        cart_product.qty += qty
+    if cart_item:
+        cart_item.qty += qty
     else:
-        cart_product = Cart(user_id=current_user.id, product_id=productId, qty=qty)
-        db.session.add(cart_product)
+        cart_item = Cart(user_id=current_user.id, product_id=product_id, qty=qty)
+        db.session.add(cart_item)
     db.session.commit()
 
-    return cart_product.to_dict()
+    return cart_item.to_dict()
 
 
 # update qty of a product
@@ -60,16 +54,15 @@ def update_qty(cartItemId):
     qty = data.get('qty')
 
 
-    cart_product = Cart.query.filter_by(user_id=current_user.id, id=cartItemId).first()
+    cart_item = Cart.query.filter_by(user_id=current_user.id, id=cartItemId).first()
 
-    if cart_product:
-        cart_product.qty = qty
-        db.session.commit()
-        result = cart_product.to_dict()
-        return result
-        # return cart_product.to_dict()
-    else:
-        return {'error': 'Product not found in cart'}
+    if not cart_item:
+        return {'error': 'Item not found in cart'}, 404
+
+    cart_item.qty = qty
+    db.session.commit()
+    return cart_item.to_dict(), 200
+
 
 
 # delete product from cart
@@ -79,11 +72,11 @@ def delete_product_cart(cartItemId):
     """
     Delete a product from the cart
     """
-    cart_product = Cart.query.filter_by(user_id=current_user.id, id=cartItemId).first()
+    cart_item = Cart.query.filter_by(user_id=current_user.id, id=cartItemId).first()
 
-    if cart_product:
-        db.session.delete(cart_product)
+    if cart_item:
+        db.session.delete(cart_item)
         db.session.commit()
-        return {'message': 'Product successfully deleted from cart'}
+        return {'message': 'Product successfully deleted from cart'}, 200
     else:
-        return {'error': 'Product not found in cart'}
+        return {'error': 'Product not found in cart'}, 404
