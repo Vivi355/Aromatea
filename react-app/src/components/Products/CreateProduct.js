@@ -38,48 +38,69 @@ function CreateProduct({ product, formType }) {
         const errors = {}
         if (name && name.length < 3) errors.name = "Name is required"
         if (description && description.length < 5) errors.description = "Description must have 5 or more characters"
-        if (primaryImg && !primaryImg.endsWith('.png') && !primaryImg.endsWith('.jpg') && !primaryImg.endsWith('.jpeg')) {
-            errors.primaryImg = 'Image URL must end with .png, .jpg, or .jpeg';
-          }
-        if (secondaryImg && !secondaryImg.endsWith('.png') && !secondaryImg.endsWith('.jpg') && !secondaryImg.endsWith('.jpeg')) {
-            errors.secondaryImg = 'Image URL must end with .png, .jpg, or .jpeg';
-          }
+        if (!price || isNaN(price) || price < 1) errors.price = "Price must be greater than 0";
 
-          if (!price || isNaN(price) || price < 1) errors.price = "Price must be greater than 0";
-
+        if (formType === "Create Product") {
+            if (!primaryImg) errors.primaryImg = "First image is required"
+            if (!secondaryImg) errors.secondaryImg = "Second image is required"
+        } else if(formType === 'Update Product' && !primaryImg && !product.primary_img) {
+            errors.primaryImg = "First image is required"
+        } else if (formType === 'Update Product' && !secondaryImg && !product.secondary_img) {
+            errors.secondaryImg = "Second image is required"
+        }
 
         setErrors(errors)
-    }, [name, description, primaryImg, secondaryImg, price])
+    }, [name, description, price])
+
+    useEffect(() => {
+        if (formType === 'Update Product') {
+            setName(product.name);
+            setDescription(product.description);
+            setPrimaryImg(product.primary_img);
+            setSecondaryImg(product.secondary_img);
+            setSelectSize(product.size);
+            setPrice(product.price);
+            setSelectCategory(product.category);
+        }
+    }, [product]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const newProduct = {
-            name,
-            description,
-            primary_img: primaryImg,
-            secondary_img: secondaryImg,
-            size: selectSize,
-            price,
-            category: selectCategory,
-        }
+        const formData = new FormData();
+        formData.append("name", name);
+        formData.append("description", description);
+        formData.append("primary_img", primaryImg);
+        formData.append("secondary_img", secondaryImg);
+        formData.append("size", selectSize);
+        formData.append("price", price);
+        formData.append("category", selectCategory);
+        // const newProduct = {
+        //     name,
+        //     description,
+        //     primary_img: primaryImg,
+        //     secondary_img: secondaryImg,
+        //     size: selectSize,
+        //     price,
+        //     category: selectCategory,
+        // }
 
 
         let updateProduct;
         if (formType === "Create Product") {
-            updateProduct = await dispatch(thunkCreateProduct(newProduct))
+            updateProduct = await dispatch(thunkCreateProduct(formData))
             history.push(`/products/${updateProduct.id}`);
         } else if (formType === 'Update Product') {
-            console.log("before dispatch update product");
-            updateProduct = await dispatch(thunkUpdateProduct({...newProduct, id: product.id}));
-            console.log("Returned from thunkUpdateProduct:", updateProduct);
+            formData.append("id", product.id)
+            updateProduct = await dispatch(thunkUpdateProduct(formData))
+            // updateProduct = await dispatch(thunkUpdateProduct({...newProduct, id: product.id}));
             history.push(`/products/${updateProduct.id}`);
         }
     }
 
 
     return (
-        <form id="product-form" onSubmit={handleSubmit}>
+        <form id="product-form" onSubmit={handleSubmit} encType="multipart/form-data">
             <div id="product-form-container">
                 <div>
                     <h2>{formType}</h2>
@@ -142,24 +163,44 @@ function CreateProduct({ product, formType }) {
                     ))}
                 </select>
 
+                {/* {errors.primaryImg && <p className="error">{errors.primaryImg}</p>} */}
+                {product.primaryImg && (
+                    <div>
+                        <label>Current Image:</label>
+                        <img src={product.primaryImg} width="80" height="80" />
+                    </div>
+                )}
                 {errors.primaryImg && <p className="error">{errors.primaryImg}</p>}
                 <label className="required">
                     <input
-                        type="text"
-                        placeholder="Product Image URL"
-                        value={primaryImg}
-                        onChange={e => setPrimaryImg(e.target.value)}
+                        type="file"
+                        placeholder="File URL"
+                        // value={primaryImg}
+                        onChange={e => setPrimaryImg(e.target.files[0])}
+                        accept="image/png, image/jpeg, image/jpg, image/gif, image/pdf"
                         required
                     />
                 </label>
 
+                {/* {errors.secondaryImg && <p className="error">{errors.secondaryImg}</p>} */}
+                {product.secondaryImg && (
+                    <div>
+                        <label>Current Image:</label>
+                        <img src={product.secondaryImg} width="80" height="80" />
+                    </div>
+                )}
                 {errors.secondaryImg && <p className="error">{errors.secondaryImg}</p>}
-                <input
-                    type="text"
-                    placeholder="Product Image URL"
-                    value={secondaryImg}
-                    onChange={e => setSecondaryImg(e.target.value)}
-                />
+                <label className="required">
+                    <input
+                        type="file"
+                        placeholder="File URL"
+                        // value={secondaryImg}
+                        onChange={e => setSecondaryImg(e.target.files[0])}
+                        accept="image/png, image/jpeg, image/jpg, image/gif, image/pdf"
+                        required
+                    />
+
+                </label>
 
                 <button type="submit">{formType}</button>
 

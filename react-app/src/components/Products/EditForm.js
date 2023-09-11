@@ -13,7 +13,6 @@ const EditForm = () => {
         dispatch(thunkGetSingleProduct(productId))
     }, [dispatch, productId])
 
-    console.log('product in edit form', product);
 
     return (
         product && Object.keys(product).length > 1 && (
