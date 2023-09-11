@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { signUp } from "../../store/session";
@@ -14,12 +14,36 @@ function SignupFormPage() {
   // const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState({});
+
+
+
+  useEffect(() => {
+    const errObj = {};
+
+    if (firstName && (firstName.length < 3 || firstName.length > 50)) errObj.firstName = "First name must be between 3 and 50 characters";
+    if (lastName && (lastName.length < 3 || lastName.length > 50)) errObj.lastName = "Last name must be at least 3 characters long";
+    if (password && password.length < 6) errObj.password = "Password must be at least 6 characters long";
+    if (confirmPassword && confirmPassword !== password) errObj.confirmPassword = "Password and Confirm Password fields must match";
+
+    setErrors(errObj)
+  }, [firstName, lastName, password, confirmPassword])
+
 
   if (sessionUser) return <Redirect to="/" />;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // valid email
+    if (!email.includes('@')) {
+      setErrors(prevErrors => ({
+        ...prevErrors,
+        email: 'The provided email is invalid'
+      }))
+      return
+    }
+
     if (password === confirmPassword) {
         const data = await dispatch(signUp(firstName, lastName, email, password));
         if (data) {
@@ -35,8 +59,9 @@ function SignupFormPage() {
       <form onSubmit={handleSubmit} id="signup-form">
       <h1>Create Account</h1>
         <ul>
-          {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+          {Object.values(errors).map((error, idx) => <li key={idx}>{error}</li>)}
         </ul>
+
         <div id="signup-container">
 
           <label className="required">
