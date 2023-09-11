@@ -9,6 +9,7 @@ export const ProductDetail = () => {
     const dispatch = useDispatch();
     const {productId} = useParams();
     const product = useSelector(state => state.products.singleProduct);
+    const currentUser = useSelector(state => state.session.user);
 
     useEffect(() => {
         dispatch(thunkGetSingleProduct(productId));
@@ -16,11 +17,7 @@ export const ProductDetail = () => {
 
     // handle click for product add to cart
     const handleAddToCart = () => {
-        const productAdd = {
-            productId: product.id,
-            qty: 1
-        };
-        dispatch(thunkAddProduct(productAdd))
+        dispatch(thunkAddProduct(product.id, 1))
     }
 
     if (!product || Object.keys(product).length === 0) return null;
@@ -54,7 +51,11 @@ export const ProductDetail = () => {
                         <hr></hr>
                     </div>
                     <div className="addcart-btn">
-                        <button onClick={handleAddToCart}>ADD TO CART <span>&#183;</span> ${product.price} </button></div>
+                        <button
+                        onClick={handleAddToCart}
+                        disabled={currentUser.id === product.userId}
+                        >ADD TO CART <span>&#183;</span> ${product.price} </button>
+                    </div>
                 </div>
             </div>
         </div>
