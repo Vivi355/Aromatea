@@ -8,6 +8,9 @@ import UserProfileDropdown from './UserAccountDropdown';
 
 function Navigation({ isLoaded }){
 	const sessionUser = useSelector(state => state.session.user);
+	const cart = useSelector(state => state.cart.cart);
+
+	const cartItemCount = Object.values(cart).reduce((acc, product) => acc + product.qty, 0);
 
 	return (
 		<>
@@ -32,7 +35,9 @@ function Navigation({ isLoaded }){
 						}
 					</div>
 					<div>
-						<NavLink to="/cart">CART</NavLink>
+						<NavLink to="/cart">
+							CART {`${cartItemCount}`}
+						</NavLink>
 					</div>
 					{/* {isLoaded && (
 						<div>

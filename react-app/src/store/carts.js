@@ -2,6 +2,7 @@ const LOAD_PRODUCTS = "cart/LOAD_PRODUCTS"
 const ADD_PRODUCT_TO_CART = "cart/ADD_PRODUCT_TO_CART"
 const UPDATE_QTY = "cart/UPDATE_QTY"
 const REMOVE_PRODUCT_FROM_CART = "cart/REMOVE_PRODUCT"
+const CLEAR_CART = "cart/CLEAR_CART"
 
 /*********** action types **************************/
 const loadProducts = (products) => ({
@@ -22,6 +23,10 @@ const updateQty = (cartItemId, qty) => ({
 const removeProduct = (cartItemId) => ({
     type: REMOVE_PRODUCT_FROM_CART,
     cartItemId
+})
+
+const clearCart = () => ({
+    type: CLEAR_CART
 })
 
 /************* Thunks ******************************/
@@ -114,6 +119,23 @@ export const thunkDeleteFromCart = (cartItemId) => async(dispatch, getState) => 
     }
 };
 
+export const thunkClearCart = () => async(dispatch, getState) => {
+    try {
+        const res = await fetch(`/api/cart/clear`, {
+            method: "DELETE"
+        })
+
+        if (res.ok) {
+            dispatch(clearCart())
+        } else {
+            const errors = await res.json()
+            throw errors;
+        }
+    } catch(error) {
+        console.error('Error clearing the cart:', error)
+    }
+}
+
 
 /******************* Reducer *******************/
 const initialState = {cart: {}}
@@ -124,6 +146,7 @@ const cartReducer = (state = initialState, action) => {
         case LOAD_PRODUCTS:
             newState = { ...state, cart: { ...state.cart, ...action.products } };
             return newState;
+
         case ADD_PRODUCT_TO_CART:
             // console.log('in the reducer');
             newState = { ...state };
@@ -141,6 +164,11 @@ const cartReducer = (state = initialState, action) => {
             newState = {...state};
             delete newState.cart[action.cartItemId];
             return newState
+
+        case CLEAR_CART:
+            newState = {...state, cart: {}}
+            return newState
+
         default:
             return state;
     }

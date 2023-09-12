@@ -162,16 +162,20 @@ const productsReducer = (state = initialState, action) => {
                 singleProduct: {...action.product}
             }
         case CURRENT_USER_PRODUCTS:
-            if (action.products && Object.keys(action.products).length) {
-                return {
-                    ...state,
-                    userProducts: {
-                        ...action.products
-                    }
-                };
-            } else {
-                return state;
-            }
+            // if (action.products && Object.keys(action.products).length) {
+            //     return {
+            //         ...state,
+            //         userProducts: {
+            //             ...action.products
+            //         }
+            //     };
+            // } else {
+            //     return state;
+            // }
+            return {
+                ...state,
+                userProducts: action.products || {}
+            };
         case DELETE_PRODUCT:
             newState = { ...state, allProducts: { ...state.allProducts }, singleProduct: { ...state.singleProduct }, userProducts: { ...state.userProducts } }
             delete newState.allProducts[action.productId]

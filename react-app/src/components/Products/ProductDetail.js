@@ -53,7 +53,7 @@ export const ProductDetail = () => {
                     <div className="addcart-btn">
                         <button
                         onClick={handleAddToCart}
-                        disabled={currentUser.id === product.userId}
+                        disabled={currentUser?.id === product.userId}
                         >ADD TO CART <span>&#183;</span> ${product.price} </button>
                     </div>
                 </div>
