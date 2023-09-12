@@ -21,6 +21,7 @@ class User(db.Model, UserMixin):
     # relationships
     products = db.relationship('Product', back_populates='user', cascade="all, delete-orphan")
     carts = db.relationship('Cart', back_populates='user', cascade="all, delete-orphan")
+    reviews = db.relationship('Review', back_populates='user', cascade="all, delete-orphan")
 
 
     @property
