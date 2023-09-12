@@ -16,6 +16,12 @@
     padding-top: 60px;
 }
 
+.star-and-reviews {
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+}
+
 .images {
     width: 450px;
     padding-right: 60px;

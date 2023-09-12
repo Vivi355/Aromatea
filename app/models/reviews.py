@@ -27,4 +27,5 @@ class Review(db.Model):
             'productId': self.product_id,
             'comment': self.comment,
             'rating': self.rating,
+            'createdAt': self.created_at,
         }

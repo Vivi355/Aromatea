@@ -16,7 +16,7 @@ def all_reviews(productId):
     for review in reviews:
         user = User.query.filter(User.id == review.user_id).first()
         new_review = review.to_dict()
-        new_review["Author"] = user
+        new_review["Author"] = user.to_dict()
         res['reviews'].append(new_review)
     return res
 
