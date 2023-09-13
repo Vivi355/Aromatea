@@ -6,6 +6,7 @@ import { thunkAddProduct } from "../../store/carts";
 import './ProductDetail.css'
 import { ReviewShow } from "../Reviews/ReviewShow";
 import StarRating from "../Reviews/StarRating";
+import { thunkLoadProducts } from "../../store/carts";
 
 export const ProductDetail = () => {
     const dispatch = useDispatch();
@@ -21,8 +22,9 @@ export const ProductDetail = () => {
     }, [dispatch, productId])
 
     // handle click for product add to cart
-    const handleAddToCart = () => {
-        dispatch(thunkAddProduct(product.id, 1))
+    const handleAddToCart = async () => {
+        await dispatch(thunkAddProduct(product.id, 1))
+        dispatch(thunkLoadProducts())
     }
 
     // scroll to review section

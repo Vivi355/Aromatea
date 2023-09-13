@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/Modal";
 import { thunkGetAllReviews, thunkUpdateReview } from "../../store/reviews";
 
 export const EditReview = ({review, productId}) => {
     const dispatch = useDispatch();
-    const history = useHistory();
+    // const history = useHistory();
     const {closeModal} = useModal();
     const [errors, setErrors] = useState({})
 
