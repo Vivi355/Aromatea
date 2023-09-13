@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { thunkCurrentUserProducts } from "../../store/products";
 import { ProductItem } from "./ProductItems";
@@ -8,10 +8,17 @@ import { Link } from "react-router-dom";
 const UserProducts = () => {
     const dispatch = useDispatch();
     const userProducts = useSelector(state => state.products.userProducts);
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        dispatch(thunkCurrentUserProducts());
+        dispatch(thunkCurrentUserProducts()).then(() => {
+            setLoading(false);
+        });
     }, [dispatch])
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
 
     return (
@@ -22,7 +29,7 @@ const UserProducts = () => {
             </div>
 
             <div id="user-products-container">
-                {Object.values(userProducts).map(product => (
+                {userProducts && Object.values(userProducts).map(product => (
                     <div className="single-product" key={product.id}>
                         <ProductItem product={product} />
                     </div>

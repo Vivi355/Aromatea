@@ -72,12 +72,14 @@ export const thunkGetSingleProduct = (id) => async (dispatch) => {
     }
 }
 
-export const thunkCreateProduct = (product) => async (dispatch) => {
+export const thunkCreateProduct = (formData) => async (dispatch) => {
     const res = await fetch(`/api/products/new`, {
         method: "POST",
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(product)
+        body: formData
+        // headers: {'Content-Type': 'application/json'},
+        // body: JSON.stringify(product)
     })
+
     if (res.ok) {
         const product = await res.json();
         dispatch(createProduct(product));
@@ -92,11 +94,13 @@ export const thunkCreateProduct = (product) => async (dispatch) => {
 	}
 }
 
-export const thunkUpdateProduct = (product) => async (dispatch) => {
-    const res = await fetch(`/api/products/${product.id}/edit`, {
+export const thunkUpdateProduct = (formData) => async (dispatch) => {
+    const productId = formData.get("id");
+    const res = await fetch(`/api/products/${productId}/edit`, {
         method: "PUT",
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(product)
+        // headers: {'Content-Type': 'application/json'},
+        // body: JSON.stringify(formData)
+        body: formData
     })
 
     if (res.ok) {
@@ -158,16 +162,20 @@ const productsReducer = (state = initialState, action) => {
                 singleProduct: {...action.product}
             }
         case CURRENT_USER_PRODUCTS:
-            if (action.products && Object.keys(action.products).length) {
-                return {
-                    ...state,
-                    userProducts: {
-                        ...action.products
-                    }
-                };
-            } else {
-                return state;
-            }
+            // if (action.products && Object.keys(action.products).length) {
+            //     return {
+            //         ...state,
+            //         userProducts: {
+            //             ...action.products
+            //         }
+            //     };
+            // } else {
+            //     return state;
+            // }
+            return {
+                ...state,
+                userProducts: action.products || {}
+            };
         case DELETE_PRODUCT:
             newState = { ...state, allProducts: { ...state.allProducts }, singleProduct: { ...state.singleProduct }, userProducts: { ...state.userProducts } }
             delete newState.allProducts[action.productId]

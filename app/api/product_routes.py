@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from app.models import Product, ProductSize, db, CategoryEnum
 from app.forms import CreateProductForm
 
+from .aws_helpers import upload_file_to_s3, get_unique_filename, remove_file_from_s3
 
 product_routes = Blueprint('products', __name__)
 
@@ -57,13 +58,28 @@ def create_product():
     form['csrf_token'].data = request.cookies['csrf_token']
 
     # convert price to float before validating form
-    if 'price' in request.json:
-        try:
-            form.price.data = float(request.json['price'])
-        except ValueError:
-            return {'errors': ['Invalid price value']}, 400
+    # try:
+    #     form.price.data = float(request.json['price'])
+    # except ValueError:
+    #     return {'errors': ['Invalid price value']}, 400
 
     if form.validate_on_submit():
+
+        # aws validator
+        primary_img = form.data["primary_img"]
+        primary_img.filename = get_unique_filename(primary_img.filename)
+        primary_upload = upload_file_to_s3(primary_img)
+
+        secondary_img = form.data["secondary_img"]
+        secondary_img.filename = get_unique_filename(secondary_img.filename)
+        secondary_upload = upload_file_to_s3(secondary_img)
+
+        if "url" not in primary_upload:
+            return {'errors': primary_upload}
+
+        if "url" not in secondary_upload:
+            return {'errors': secondary_upload}
+
         new_product = Product(
             user_id=current_user.id,
             category=CategoryEnum(form.data['category']),
@@ -71,9 +87,13 @@ def create_product():
             description=form.data['description'],
             size=ProductSize(form.data['size']),
             price=form.data['price'],
-            primary_img=form.data['primary_img'],
-            secondary_img=form.data['secondary_img'],
+            # primary_img=form.data['primary_img'],
+            primary_img=primary_upload["url"],
+            # secondary_img=form.data['secondary_img'],
+            secondary_img=secondary_upload["url"],
         )
+
+        print('new product created', new_product)
 
         db.session.add(new_product)
         db.session.commit()
@@ -92,15 +112,40 @@ def update_product(id):
     form = CreateProductForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
+    product_to_edit = Product.query.get(id)
+    if not product_to_edit:
+        return {"errors": ["Product not found"]}, 404
+
     if form.validate_on_submit():
-        product_to_edit = Product.query.get(id)
+        # aws
+        if form.data['primary_img']:
+            primary_img = form.data['primary_img']
+            primary_img.filename = get_unique_filename(primary_img.filename)
+            primary_upload = upload_file_to_s3(primary_img)
+
+            if "url" not in primary_upload:
+                return {'errors': primary_upload}
+
+            product_to_edit.primary_img = primary_upload["url"]
+
+        if form.data['secondary_img']:
+            secondary_img = form.data['secondary_img']
+            secondary_img.filename = get_unique_filename(secondary_img.filename)
+            secondary_upload = upload_file_to_s3(secondary_img)
+
+            if "url" not in secondary_upload:
+                return {'errors': secondary_upload}
+
+            product_to_edit.secondary_img = secondary_upload["url"]
+
+
         product_to_edit.category=CategoryEnum(form.data['category'])
         product_to_edit.name = form.data['name']
         product_to_edit.description = form.data['description']
         product_to_edit.size=ProductSize(form.data['size'])
         product_to_edit.price=form.data['price']
-        product_to_edit.primary_img = form.data['primary_img']
-        product_to_edit.secondary_img = form.data['secondary_img']
+        # product_to_edit.primary_img = form.data['primary_img']
+        # product_to_edit.secondary_img = form.data['secondary_img']
 
 
         db.session.commit()

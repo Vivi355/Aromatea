@@ -4,7 +4,7 @@ import "./LandingPage.css"
 
 function LandingPage() {
     const bgStyle = {
-        backgroundImage: "url('https://cdn.discordapp.com/attachments/1134917911941742615/1149168066207432825/drew-jemmett-qEcWgrTG578-unsplash.jpg')",
+        backgroundImage: "url('https://capstone-aromatea.s3.us-west-1.amazonaws.com/landingPage.jpg')",
         backgroundSize: 'cover',
         height: '100vh',
         display: 'flex',

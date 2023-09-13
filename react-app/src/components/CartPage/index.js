@@ -2,10 +2,13 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./CartPage.css"
 import { thunkLoadProducts, thunkEditQty, thunkDeleteFromCart } from "../../store/carts";
+import { NavLink, useHistory } from "react-router-dom";
+import { thunkClearCart } from "../../store/carts";
 // import { thunkGetSingleProduct } from "../../store/products";
 
 const CartPage = () => {
     const dispatch = useDispatch();
+    const history = useHistory();
     const cart = useSelector(state => state.cart.cart);
 
     useEffect(() => {
@@ -32,10 +35,20 @@ const CartPage = () => {
         return Object.values(cart).reduce((total, product) => total + product.price * product.qty, 0);
     };
 
+    const itemsInCart = Object.values(cart).length;
+
+    const handleCheckout = () => {
+        dispatch(thunkClearCart())
+        history.push('/order')
+    }
+
     return (
         <div className="cartPage">
             <h2>Your Cart ({Object.values(cart).length} {Object.values(cart).length === 1 ? 'item' : 'items'})</h2>
-            {Object.values(cart).map(product => (
+
+            {itemsInCart > 0 ? (
+                <>
+                    {Object.values(cart).map(product => (
                 <div key={product.id} className="cartItem">
                     <img src={product.primaryImg} alt={product.name} />
                     <div className="productDetails">
@@ -52,9 +65,24 @@ const CartPage = () => {
                     </div>
                 </div>
             ))}
-            <div className="subtotal">
-                Subtotal: ${calculateSubtotal().toFixed(2)}
-            </div>
+                    <div className="subtotal">
+                        Total: ${calculateSubtotal().toFixed(2)}
+                    </div>
+                    <div className="checkout-btn">
+                        <button onClick={handleCheckout}>CHECKOUT</button>
+                    </div>
+                </>
+            ): (
+                <>
+                    <div>You cart is currently empty</div>
+                    <NavLink to="/products/all">
+                        <button>CONTINUE SHOPPING</button>
+                    </NavLink>
+                </>
+            )}
+
+
+
         </div>
     );
 };

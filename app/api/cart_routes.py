@@ -80,3 +80,16 @@ def delete_product_cart(cartItemId):
         return {'message': 'Product successfully deleted from cart'}, 200
     else:
         return {'error': 'Product not found in cart'}, 404
+
+
+# clear products from cart
+@cart_routes.route('/clear', methods=['DELETE'])
+@login_required
+def clear_cart():
+    """
+    Clear all products in cart for the current user
+    """
+    Cart.query.filter_by(user_id=current_user.id).delete()
+    db.session.commit()
+
+    return {'message': 'Cart cleared successfully'}, 200
