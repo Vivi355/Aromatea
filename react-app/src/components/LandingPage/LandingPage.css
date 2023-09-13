@@ -1,0 +1,31 @@
+body {
+    margin: 0;
+}
+
+#home-content {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-bottom: 80px;
+    margin-right: 500px;
+}
+
+#home-content a {
+    cursor: pointer;
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+    border: 1.6px solid white;
+    width: 180px;
+    height: 80px;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#home-content a:hover {
+    transform: scale(1.05);
+    /* background-color: rgba(255, 255, 255, 0.1); */
+}

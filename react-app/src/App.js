@@ -16,6 +16,7 @@ import UserProducts from "./components/Products/UserProducts";
 import LandingPage from "./components/LandingPage";
 import CartPage from "./components/CartPage";
 import ConfirmationPage from "./components/ConfirmationPage";
+import { Footer } from "./components/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -62,6 +63,7 @@ function App() {
 
         </Switch>
       )}
+    <Footer />
     </>
   );
 }

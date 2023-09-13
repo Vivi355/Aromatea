@@ -1,4 +1,5 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom';
 
 import "./LandingPage.css"
 
@@ -10,11 +11,17 @@ function LandingPage() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        flexDirection: 'column',
+        justifyContent: 'flex-end',
     };
 
     return (
         <div id='landing-page-div' style={bgStyle}>
-            {/* <h1>Discover more</h1> */}
+            <div id='home-content'>
+                <NavLink to="/products/all">
+                    SHOP NOW
+                </NavLink>
+            </div>
         </div>
     );
 }

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { NavLink, useHistory  } from "react-router-dom";
 import { logout } from "../../store/session";
+import './Navigation.css'
 
 function UserProfileDropdown({ user }) {
     const dispatch = useDispatch();
@@ -29,25 +30,29 @@ function UserProfileDropdown({ user }) {
     };
 
     return (
-        <div ref={dropdownRef}>
+        <div ref={dropdownRef} id="profile-container">
             <button onClick={() => setShowMenu(!showMenu)}>
                 MY ACCOUNT
             </button>
             {showMenu && (
                 <ul className="profile-dropdown">
-                    <div>
-                        Hi! {user?.firstName}
+                    <div className="greeting">
+                        <i class="far fa-user"></i>
+                        {user?.firstName}
                     </div>
-                    <div>
+                    <div className="my-products">
+                        <i class="fas fa-leaf"></i>
                         <NavLink to="/products/current" onClick={() => setShowMenu(false)}>My Products</NavLink>
                     </div>
                     <div className="new-product-link">
-                        <NavLink to="/products/new">Create new product</NavLink>
+                        <i class="fas fa-plus-square"></i>
+                        <NavLink to="/products/new">New Product</NavLink>
                     </div>
-                    <div>
+                    <div className="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i>
                         <button
-                        onClick={handleLogout}
-                        >Log Out</button>
+                        onClick={handleLogout} className="btn"
+                        >SIGN OUT</button>
                     </div>
                 </ul>
             )}

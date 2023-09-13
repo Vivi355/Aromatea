@@ -1,0 +1,28 @@
+#creator {
+    /* border: 2px solid blue; */
+    margin-top: 100px;
+    background-color: rgb(40,54,69);
+    color: rgb(168,134,103);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 50px;
+    gap: 10px;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.copy-right {
+    font-family: 'Roboto', sans-serif;
+}
+
+.fa-github, .fa-linkedin{
+    color: rgb(168,134,103);
+    font-size: 20px;
+}
+
+.contact {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
