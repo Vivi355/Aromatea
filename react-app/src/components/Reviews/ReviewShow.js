@@ -4,6 +4,10 @@ import { useParams } from 'react-router-dom';
 import { thunkGetAllReviews } from '../../store/reviews';
 import './ReviewShow.css'
 import StarRating from './StarRating';
+import { CreateReview } from './CreateReview';
+import { useModal } from '../../context/Modal';
+import { DeleteReview } from '../DeleteReviewModal';
+import { EditReview } from './EditReview';
 
 export const ReviewShow = () => {
     const dispatch = useDispatch()
@@ -12,6 +16,9 @@ export const ReviewShow = () => {
     const reviews = Object.values(useSelector(state => state.reviews.productReviews))
     const currentUser = useSelector(state => state.session.user);
     const product = useSelector(state => state.products?.singleProduct)
+    const {openModal} = useModal();
+
+    // const [reviewCreated, setReviewCreated] = useState(false);
 
     useEffect(() => {
         dispatch(thunkGetAllReviews(productId))
@@ -30,28 +37,7 @@ export const ReviewShow = () => {
 
     // avg rating
     const avgRating = reviews.length ? (reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length).toFixed(2) : 0
-
-    // render stars
-    // const renderStars = (rating) => {
-    //     let stars = [];
-    //     const fullStars = Math.floor(rating);
-    //     const halfStar = rating % 1 >= 0.5;
-    //     const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
-
-    //     for (let i = 0; i < fullStars; i++) {
-    //         stars.push(<i key={`full-${i}`} className="fas fa-star"></i>);
-    //     }
-
-    //     if (halfStar) {
-    //         stars.push(<i key="half" className="fas fa-star-half-alt"></i>);
-    //     }
-
-    //     for (let j = 0; j < emptyStars; j++) {
-    //         stars.push(<i key={`empty-${j}`} className="far fa-star"></i>);
-    //     }
-
-    //     return stars;
-    // };
+    // console.log(avgRating);
 
     // format date
     function formatDate(dateStr) {
@@ -63,12 +49,28 @@ export const ReviewShow = () => {
         return `${months[date.getMonth()]} ${date.getFullYear()}`
     }
 
+    // create review modal
+    const handleClick = () => {
+        openModal(<CreateReview productId={productId} />)
+    }
+
+    // edit review
+    const handleEdit = (review) => {
+        openModal(<EditReview review={review} productId={productId} />)
+    }
+
+    // handle delete review
+    const handleDelete = (reviewId) => {
+        openModal(<DeleteReview reviewId={reviewId} />)
+    }
+
     return (
         <div>
             <h1>Customer Reviews</h1>
             <div className='stars-and-btn'>
                 <div className='stats-reviews'>
                     <div>
+                        {avgRating}
                         <StarRating rating={avgRating} />
                     </div>
                     <div>
@@ -76,7 +78,7 @@ export const ReviewShow = () => {
                     </div>
                 </div>
                 <div className='post-review-btn'>
-                    {reviewBtn() && <button>WRITE A REVIEW</button>}
+                    {reviewBtn() && <button onClick={handleClick}>WRITE A REVIEW</button>}
                 </div>
             </div>
 
@@ -97,8 +99,19 @@ export const ReviewShow = () => {
                         </div>
                         <div className='stars'>
                             {/* {renderStars(review.rating)} */}
+
                             <StarRating rating={review.rating}/>
+                            {/* {avgRating(review.rating)} */}
                             <p>{review.comment}</p>
+                        </div>
+                        <div className='delete-review'>
+                            {currentUser && currentUser.id === review.userId && (
+                                <>
+                                    <button onClick={() => handleEdit(review)}>Edit</button>
+                                    <button onClick={() => handleDelete(review.id)}>Delete</button>
+
+                                </>
+                            )}
                         </div>
                     </div>
                 ))
