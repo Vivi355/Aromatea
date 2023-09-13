@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./CartPage.css"
 import { thunkLoadProducts, thunkEditQty, thunkDeleteFromCart } from "../../store/carts";
@@ -35,7 +35,8 @@ const CartPage = () => {
         return Object.values(cart).reduce((total, product) => total + product.price * product.qty, 0);
     };
 
-    const itemsInCart = Object.values(cart).length;
+    // const itemsInCart = Object.values(cart).length;
+    const cartItemCount = Object.values(cart).reduce((acc, product) => acc + product.qty, 0);
 
     const handleCheckout = () => {
         dispatch(thunkClearCart())
@@ -44,9 +45,9 @@ const CartPage = () => {
 
     return (
         <div className="cartPage">
-            <h2>Your Cart ({Object.values(cart).length} {Object.values(cart).length === 1 ? 'item' : 'items'})</h2>
+            <h2>Your Cart ({cartItemCount} {cartItemCount === 1 ? 'item' : 'items'})</h2>
 
-            {itemsInCart > 0 ? (
+            {cartItemCount > 0 ? (
                 <>
                     {Object.values(cart).map(product => (
                 <div key={product.id} className="cartItem">
@@ -70,6 +71,9 @@ const CartPage = () => {
                     </div>
                     <div className="checkout-btn">
                         <button onClick={handleCheckout}>CHECKOUT</button>
+                        <NavLink to="/products/all">
+                            <button>CONTINUE SHOPPING</button>
+                        </NavLink>
                     </div>
                 </>
             ): (

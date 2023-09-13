@@ -10,7 +10,9 @@ function Navigation({ isLoaded }){
 	const sessionUser = useSelector(state => state.session.user);
 	const cart = useSelector(state => state.cart.cart);
 
-	const cartItemCount = Object.values(cart).reduce((acc, product) => acc + product.qty, 0);
+	const cartItemCount = sessionUser
+    ? Object.values(cart).reduce((acc, product) => acc + product.qty, 0)
+    : 0;
 
 	return (
 		<>
