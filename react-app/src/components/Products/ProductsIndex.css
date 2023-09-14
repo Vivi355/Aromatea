@@ -1,6 +1,15 @@
 #products-page {
+    padding-top: 100px;
     margin: 0px auto;
     max-width: 1024px;
+
+    background-image: url('https://cdn.discordapp.com/attachments/1134917911941742615/1151662525029560400/content-pixie-m-gqDRzbJLQ-unsplash.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top center;
+    padding-top: 400px;
+    height: 10px;
+    margin-bottom: 1000px;
 }
 
 #products-page > ul {
@@ -10,6 +19,21 @@
     margin-bottom: 400px;
     align-items: center;
     justify-content: center;
+    /* padding-bottom: 200px; */
+    /* margin-top: 50px; */
+
+}
+
+.header-section {
+    /* border: 2px solid red; */
+    margin-top: 50px;
+}
+
+.header-section > a {
+    text-decoration: none;
+    color: black;
+    padding-left: 40px;
+
 }
 
 .first-img img {
@@ -26,14 +50,50 @@
     padding-bottom: 55px;
 }
 
+
+.primary-image, .secondary-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: opacity 0.3s;
+}
+
+.primary-image {
+    opacity: 1;
+}
+
+.secondary-image {
+    opacity: 0;
+}
+
+.image-fade-out {
+    opacity: 0;
+}
+
+.image-fade-in {
+    opacity: 1;
+}
+
 .product-detail {
     display: flex;
     flex-direction: row;
     width: 280px;
     justify-content: space-between;
     /* gap: 90px; */
+    padding-bottom: 5px;
 }
 
-/* .product-name {
-    margin-left: -40px;
-} */
+.product-name {
+    font-family: 'EB Garamond', serif;
+    font-size: 22px;
+    color: rgb(47,54,75);
+}
+
+.product-price {
+    color: gray;
+}
+
+.product-type {
+    color: rgba(0, 0, 0, 0.686);
+    font-size: 15px;
+}
