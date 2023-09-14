@@ -19,3 +19,14 @@ class CreateProductForm(FlaskForm):
     price = FloatField('Price', validators=[DataRequired()])
 
     submit = SubmitField('Submit')
+
+class UpdateProductForm(FlaskForm):
+    name = StringField('Name', validators=[DataRequired(), Length(min=3, max=200)])
+    category = SelectField('Type', choices=[(category.name, category.value) for category in CategoryEnum])
+    description = TextAreaField('Add a description', validators=[DataRequired(), Length(min=5, max=2000)])
+    primary_img = FileField('Image File', validators=[Optional(), FileAllowed(list(ALLOWED_EXTENSIONS))])
+    secondary_img = FileField('Image File', validators=[Optional(), FileAllowed(list(ALLOWED_EXTENSIONS))])
+    size = SelectField('Size', choices=[(choice.name, choice.value) for choice in ProductSize])
+    price = FloatField('Price', validators=[DataRequired()])
+
+    submit = SubmitField('Submit')

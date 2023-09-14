@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, session, request
 from flask_login import login_required, current_user
 from app.models import Product, ProductSize, db, CategoryEnum
-from app.forms import CreateProductForm
+from app.forms import CreateProductForm, UpdateProductForm
 
 from .aws_helpers import upload_file_to_s3, get_unique_filename, remove_file_from_s3
 
@@ -109,7 +109,7 @@ def update_product(id):
     """
     Edit the product based on id
     """
-    form = CreateProductForm()
+    form = UpdateProductForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
     product_to_edit = Product.query.get(id)
@@ -144,8 +144,6 @@ def update_product(id):
         product_to_edit.description = form.data['description']
         product_to_edit.size=ProductSize(form.data['size'])
         product_to_edit.price=form.data['price']
-        # product_to_edit.primary_img = form.data['primary_img']
-        # product_to_edit.secondary_img = form.data['secondary_img']
 
 
         db.session.commit()
