@@ -35,7 +35,7 @@ function UserProfileDropdown({ user }) {
     return (
         <div ref={dropdownRef} id="profile-container">
             <button onClick={() => setShowMenu(!showMenu)}>
-                MY ACCOUNT
+                MY ACCOUNT <i class="fas fa-caret-down fa-xs"></i>
             </button>
             {showMenu && (
                 <ul className="profile-dropdown">

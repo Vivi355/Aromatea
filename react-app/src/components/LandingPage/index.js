@@ -10,7 +10,7 @@ function LandingPage() {
         height: '100vh',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center',
+        // justifyContent: 'center',
         flexDirection: 'column',
         justifyContent: 'flex-end',
     };

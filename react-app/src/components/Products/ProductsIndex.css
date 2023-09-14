@@ -3,13 +3,20 @@
     margin: 0px auto;
     max-width: 1024px;
 
-    background-image: url('https://cdn.discordapp.com/attachments/1134917911941742615/1151662525029560400/content-pixie-m-gqDRzbJLQ-unsplash.jpg');
+    /* background-image: url('https://cdn.discordapp.com/attachments/1134917911941742615/1151662525029560400/content-pixie-m-gqDRzbJLQ-unsplash.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: top center;
     padding-top: 400px;
     height: 10px;
-    margin-bottom: 1000px;
+    margin-bottom: 1500px; */
+}
+
+#products-page > img {
+    height: 400px;
+    width: 950px;
+    padding-left: 40px;
+
 }
 
 #products-page > ul {
