@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { NavLink, useHistory  } from "react-router-dom";
 import { logout } from "../../store/session";
 import './Navigation.css'
+import { clearCart } from "../../store/carts";
 
 function UserProfileDropdown({ user }) {
     const dispatch = useDispatch();
@@ -25,6 +26,8 @@ function UserProfileDropdown({ user }) {
 
     const handleLogout = (e) => {
         e.preventDefault();
+
+        dispatch(clearCart())
         dispatch(logout());
         history.push('/')
     };

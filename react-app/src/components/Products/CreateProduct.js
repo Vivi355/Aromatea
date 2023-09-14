@@ -38,7 +38,7 @@ function CreateProduct({ product, formType }) {
         const errors = {}
         if (name && name.length < 3) errors.name = "Name is required"
         if (description && description.length < 5) errors.description = "Description must have 5 or more characters"
-        if (!price || isNaN(price) || price < 1) errors.price = "Price must be greater than 0";
+        if (!price || isNaN(price) || price <= 0) errors.price = "Price must be greater than 0";
 
         if (formType === "Create Product") {
             if (!primaryImg) errors.primaryImg = "First image is required"
@@ -147,6 +147,7 @@ function CreateProduct({ product, formType }) {
                         placeholder="Price"
                         value={price}
                         onChange={e => setPrice(e.target.value)}
+                        min="1"
                         required
                     />
 
