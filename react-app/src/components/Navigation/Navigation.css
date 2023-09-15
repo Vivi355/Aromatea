@@ -5,7 +5,7 @@
   height: 68px;
 
   position: fixed;
-  z-index: 2;
+  z-index: 1000;
   width: 88vw;
   background-color: rgb(247,245,240);
   border-radius: 5px;
