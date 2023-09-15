@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { NavLink, useHistory  } from "react-router-dom";
 import { logout } from "../../store/session";
+import './Navigation.css'
+import { clearCart } from "../../store/carts";
 
 function UserProfileDropdown({ user }) {
     const dispatch = useDispatch();
@@ -24,30 +26,36 @@ function UserProfileDropdown({ user }) {
 
     const handleLogout = (e) => {
         e.preventDefault();
+
+        dispatch(clearCart())
         dispatch(logout());
         history.push('/')
     };
 
     return (
-        <div ref={dropdownRef}>
+        <div ref={dropdownRef} id="profile-container">
             <button onClick={() => setShowMenu(!showMenu)}>
-                MY ACCOUNT
+                MY ACCOUNT <i class="fas fa-caret-down fa-xs"></i>
             </button>
             {showMenu && (
                 <ul className="profile-dropdown">
-                    <div>
-                        Hi! {user?.firstName}
+                    <div className="greeting">
+                        <i class="far fa-user"></i>
+                        {user?.firstName}
                     </div>
-                    <div>
-                        <NavLink to="/products/current" onClick={() => setShowMenu(false)}>My Products</NavLink>
+                    <div className="my-products">
+                        <i class="fas fa-leaf"></i>
+                        <NavLink to="/products/current" onClick={() => setShowMenu(false)}>My Tea</NavLink>
                     </div>
                     <div className="new-product-link">
-                        <NavLink to="/products/new">Create new product</NavLink>
+                        <i class="fas fa-plus-square"></i>
+                        <NavLink to="/products/new">New Tea</NavLink>
                     </div>
-                    <div>
+                    <div className="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i>
                         <button
-                        onClick={handleLogout}
-                        >Log Out</button>
+                        onClick={handleLogout} className="btn"
+                        >SIGN OUT</button>
                     </div>
                 </ul>
             )}

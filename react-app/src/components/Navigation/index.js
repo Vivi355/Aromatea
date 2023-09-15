@@ -27,6 +27,7 @@ function Navigation({ isLoaded }){
 						Aromatea
 					</NavLink>
 				</div>
+
 				<div className='right-nav'>
 					{/* <div>SEARCH</div> */}
 					<div className='account'>
@@ -36,10 +37,13 @@ function Navigation({ isLoaded }){
 							<NavLink to="/login">ACCOUNT</NavLink>
 						}
 					</div>
-					<div>
+					<div className='nav-cart'>
 						<NavLink to="/cart">
-							CART {`${cartItemCount}`}
+							CART
 						</NavLink>
+						<div className='item-count'>
+							{`${cartItemCount}`}
+						</div>
 					</div>
 					{/* {isLoaded && (
 						<div>

@@ -25,7 +25,7 @@ const removeProduct = (cartItemId) => ({
     cartItemId
 })
 
-const clearCart = () => ({
+export const clearCart = () => ({
     type: CLEAR_CART
 })
 

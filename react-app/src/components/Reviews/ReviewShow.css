@@ -1,0 +1,150 @@
+#review-container {
+    margin-bottom: 300px;
+}
+
+.review-title {
+    font-size: 48px;
+    font-family: 'EB Garamond', serif;
+    display: flex;
+    justify-content: center;
+    /* margin-bottom: 30px; */
+    padding-bottom: 50px;
+}
+
+.stars-and-btn {
+    /* border: 2px solid green; */
+    /* border-bottom: 1px solid rgb(168,134,103); */
+    display: flex;
+    flex-direction: row;
+    padding-left: 30px;
+    margin: 20px 200px;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    position: relative;
+}
+
+.bottom-border {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 720px;
+    border-bottom: 1px solid rgb(168,134,103);
+    transform: translateX(-50%);
+    margin-bottom: 10px;
+}
+
+.stats-reviews {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-bottom: 20px;
+}
+
+.rnumber {
+    font-size: 32px;
+    color: rgb(168,134,103);
+    font-family: 'EB Garamond', serif;
+}
+
+.rstars, .stars {
+    color: rgb(168,134,103);
+    font-size: 18px;
+}
+
+.rcount {
+    font-size: 15px;
+    color: gray;
+    padding-bottom: 20px;
+}
+
+.post-review-btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding-left: 100px;
+}
+
+.post-review-btn button {
+    border-radius: 100%;
+    background-color: white;
+    color: rgb(168,134,103);
+    border-color: rgb(168,134,103);
+    font-weight: 700;
+    /* border: none; */
+    height: 60px;
+    width: 180px;
+    cursor: pointer;
+}
+
+.post-review-btn button:hover {
+    transform: scale(1.01);
+}
+
+/***************************/
+
+.review-content {
+    /* border: 2px solid red; */
+    margin: 20px 200px;
+}
+
+.review-item {
+    /* border: 2px solid red; */
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    height: 90px;
+    position: relative;
+    padding-bottom: 20px;
+}
+
+.rleft {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 10px;
+    /* width: 200px; */
+    padding-right: 10px;
+}
+
+.fa-circle {
+    font-size: 45px;
+    color: rgb(247,245,240);
+}
+
+.author-date {
+    display: flex;
+    flex-direction: column;
+    width: 80px;
+}
+
+.author {
+    color: gray;
+    font-size: 17px;
+}
+
+.rdate {
+    color: darkgray;
+    font-size: 14px;
+}
+
+.rcomment {
+    color: rgb(119, 118, 118);
+    padding-top: 8px;
+    font-size: 17px;
+}
+
+.delete-review {
+    padding-top: 5px;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.delete-review button {
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    color: darkgray;
+}

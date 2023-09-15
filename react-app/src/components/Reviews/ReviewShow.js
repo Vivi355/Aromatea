@@ -65,15 +65,18 @@ export const ReviewShow = () => {
     }
 
     return (
-        <div>
-            <h1>Customer Reviews</h1>
+        <div id='review-container'>
+            <div className='review-title'>Customer Reviews</div>
             <div className='stars-and-btn'>
+                <div className='bottom-border'></div>
                 <div className='stats-reviews'>
-                    <div>
+                    <div className='rnumber'>
                         {avgRating}
+                    </div>
+                    <div className='rstars'>
                         <StarRating rating={avgRating} />
                     </div>
-                    <div>
+                    <div className='rcount'>
                         {reviews.length} {reviews.length === 1 ? 'review' : 'reviews'}
                     </div>
                 </div>
@@ -82,36 +85,41 @@ export const ReviewShow = () => {
                 </div>
             </div>
 
-            <div>
+            <div className='review-content'>
                 {reviews.length === 0 && currentUser && product && product.userId && currentUser.id !== product.userId ? <p>Be the first to post a review!</p>
                 :
                 reviews.map(review => (
                     <div key={review.id} className='review-item'>
-                        <div className='author'>
-                            {review.Author &&
-                                <span className='author'>
-                                    {review.Author.firstName} {review.Author.lastName[0]}
-                                </span>
-                            }
-                            <span>
-                                {formatDate(review.createdAt)}
-                            </span>
+                         <div className='bottom-border'></div>
+                        <div className='rleft'>
+                            <div className='circle-icon'>
+                                <i class="fas fa-circle fa-lg"></i>
+                            </div>
+                            <div className='author-date'>
+                                {review.Author &&
+                                    <div className='author'>
+                                        {review.Author.firstName} {review.Author.lastName[0]}
+                                    </div>
+                                }
+                                <div className='rdate'>
+                                    {formatDate(review.createdAt)}
+                                </div>
+                            </div>
                         </div>
-                        <div className='stars'>
-                            {/* {renderStars(review.rating)} */}
+                        <div className='rright'>
+                            <div className='stars'>
+                                <StarRating rating={review.rating}/>
+                                <div className='rcomment'>{review.comment}</div>
+                            </div>
+                            <div className='delete-review'>
+                                {currentUser && currentUser.id === review.userId && (
+                                    <>
+                                        <button className='ubtn' onClick={() => handleEdit(review)}><i class="far fa-edit"></i></button>
+                                        <button className='dbtn' onClick={() => handleDelete(review.id)}><i class="fas fa-trash-alt"></i></button>
+                                    </>
+                                )}
 
-                            <StarRating rating={review.rating}/>
-                            {/* {avgRating(review.rating)} */}
-                            <p>{review.comment}</p>
-                        </div>
-                        <div className='delete-review'>
-                            {currentUser && currentUser.id === review.userId && (
-                                <>
-                                    <button onClick={() => handleEdit(review)}>Edit</button>
-                                    <button onClick={() => handleDelete(review.id)}>Delete</button>
-
-                                </>
-                            )}
+                            </div>
                         </div>
                     </div>
                 ))

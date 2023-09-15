@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom"
+import { useHistory, NavLink } from "react-router-dom"
 import "./CreateProduct.css"
 import { thunkCreateProduct, thunkUpdateProduct } from "../../store/products";
 
@@ -38,7 +38,7 @@ function CreateProduct({ product, formType }) {
         const errors = {}
         if (name && name.length < 3) errors.name = "Name is required"
         if (description && description.length < 5) errors.description = "Description must have 5 or more characters"
-        if (!price || isNaN(price) || price < 1) errors.price = "Price must be greater than 0";
+        if (!price || isNaN(price) || price <= 0) errors.price = "Price must be greater than 0";
 
         if (formType === "Create Product") {
             if (!primaryImg) errors.primaryImg = "First image is required"
@@ -70,8 +70,14 @@ function CreateProduct({ product, formType }) {
         const formData = new FormData();
         formData.append("name", name);
         formData.append("description", description);
-        formData.append("primary_img", primaryImg);
-        formData.append("secondary_img", secondaryImg);
+
+        if (primaryImg) {
+            formData.append("primary_img", primaryImg);
+        }
+        if (secondaryImg) {
+            formData.append("secondary_img", secondaryImg);
+        }
+
         formData.append("size", selectSize);
         formData.append("price", price);
         formData.append("category", selectCategory);
@@ -107,7 +113,7 @@ function CreateProduct({ product, formType }) {
                 </div>
 
                 {errors.name && <p className="error">{errors.name}</p>}
-                <label className="required">
+                <label>
                     <input
                         type="text"
                         placeholder="Product Name"
@@ -118,7 +124,7 @@ function CreateProduct({ product, formType }) {
                 </label>
 
                 {errors.description && <p className="error">{errors.description}</p>}
-                <label className="required">
+                <label>
                     <textarea
                         type="textarea"
                         placeholder="Product Description"
@@ -140,13 +146,14 @@ function CreateProduct({ product, formType }) {
                     ))}
                 </select>
 
-                {errors.price && <p className="error">{errors.price}</p>}
-                <label className="required">
+                {/* {errors.price && <p className="error">{errors.price}</p>} */}
+                <label>
                     <input
                         type="number"
                         placeholder="Price"
                         value={price}
                         onChange={e => setPrice(e.target.value)}
+                        min="1"
                         required
                     />
 
@@ -164,46 +171,50 @@ function CreateProduct({ product, formType }) {
                 </select>
 
                 {/* {errors.primaryImg && <p className="error">{errors.primaryImg}</p>} */}
-                {product.primaryImg && (
+                {/* {product.primaryImg && (
                     <div>
                         <label>Current Image:</label>
                         <img src={product.primaryImg} width="80" height="80" />
                     </div>
-                )}
-                {errors.primaryImg && <p className="error">{errors.primaryImg}</p>}
-                <label className="required">
+                )} */}
+                {/* {errors.primaryImg && <p className="error">{errors.primaryImg}</p>} */}
+                <label>
                     <input
                         type="file"
                         placeholder="File URL"
                         // value={primaryImg}
                         onChange={e => setPrimaryImg(e.target.files[0])}
                         accept="image/png, image/jpeg, image/jpg, image/gif, image/pdf"
-                        required
+                        required={formType === "Create Product" || !product.primaryImg}
                     />
                 </label>
 
                 {/* {errors.secondaryImg && <p className="error">{errors.secondaryImg}</p>} */}
-                {product.secondaryImg && (
+                {/* {product.secondaryImg && (
                     <div>
                         <label>Current Image:</label>
                         <img src={product.secondaryImg} width="80" height="80" />
                     </div>
-                )}
-                {errors.secondaryImg && <p className="error">{errors.secondaryImg}</p>}
-                <label className="required">
+                )} */}
+                {/* {errors.secondaryImg && <p className="error">{errors.secondaryImg}</p>} */}
+                <label>
                     <input
                         type="file"
                         placeholder="File URL"
                         // value={secondaryImg}
                         onChange={e => setSecondaryImg(e.target.files[0])}
                         accept="image/png, image/jpeg, image/jpg, image/gif, image/pdf"
-                        required
+                        required={formType === "Create Product" || !product.secondaryImg}
                     />
 
                 </label>
 
-                <button type="submit">{formType}</button>
-
+                <div className="create-btns">
+                    <NavLink to={"/products/current"}>
+                        <button>Back</button>
+                    </NavLink>
+                    <button type="submit">{formType}</button>
+                </div>
             </div>
         </form>
     )

@@ -15,22 +15,24 @@ export const DeleteReview = ({reviewId, setReviewChange}) => {
 
     return (
         <div className="review-delete-popup">
-            <h1>Confirm Delete</h1>
-            <p>Are your sure you want to delete this review?</p>
+            <h3>Confirm Delete</h3>
+            <div>Are your sure you want to delete this review?</div>
 
-            <button
-                className="delete-review"
-                onClick={() => handleDelete(reviewId)}
-            >
-                Yes (Delete Review)
-            </button>
+            <div className="two-btns">
+                <button
+                    className="delete-review"
+                    onClick={() => handleDelete(reviewId)}
+                >
+                    Yes
+                </button>
 
-            <button
-                className="keep-review"
-                onClick={closeModal}
-            >
-                No (Keep Review)
-            </button>
+                <button
+                    className="keep-review"
+                    onClick={closeModal}
+                >
+                    No
+                </button>
+            </div>
         </div>
     )
 }

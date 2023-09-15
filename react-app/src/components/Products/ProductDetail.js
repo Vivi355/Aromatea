@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams, NavLink } from "react-router-dom";
+import { useParams, NavLink, useHistory } from "react-router-dom";
 import { thunkGetSingleProduct } from "../../store/products";
 import { thunkAddProduct } from "../../store/carts";
 import './ProductDetail.css'
@@ -10,6 +10,7 @@ import { thunkLoadProducts } from "../../store/carts";
 
 export const ProductDetail = () => {
     const dispatch = useDispatch();
+    const history = useHistory();
     const {productId} = useParams();
     const product = useSelector(state => state.products.singleProduct);
     const currentUser = useSelector(state => state.session.user);
@@ -23,8 +24,12 @@ export const ProductDetail = () => {
 
     // handle click for product add to cart
     const handleAddToCart = async () => {
-        await dispatch(thunkAddProduct(product.id, 1))
-        dispatch(thunkLoadProducts())
+        if (!currentUser) {
+            history.push('/login')
+        } else {
+            await dispatch(thunkAddProduct(product.id, 1))
+            dispatch(thunkLoadProducts())
+        }
     }
 
     // scroll to review section
@@ -40,14 +45,11 @@ export const ProductDetail = () => {
     return (
         <>
             <div id="detail-page">
-                <div className="back-to-products">
-                    <NavLink to={`/products/all`}>
-                        <i className="fas fa-arrow-left" ></i>
-                        BACK TO ALL TEAS
-                    </NavLink>
+                <div className="nav-back">
+                    <NavLink to={'/products/all'}>All Tea</NavLink><i class="fas fa-slash fa-rotate-270 fa-xs"></i> {product.name}
                 </div>
 
-                <div id="single-product-container">
+                <div className="single-product-container">
                     <div className="images">
                         <img src={product.primaryImg} alt={product.name} style={{paddingBottom: "10px"}}></img>
                         {product.secondaryImg ? <img src={product.secondaryImg} alt={product.name}></img> : null}
@@ -55,10 +57,10 @@ export const ProductDetail = () => {
 
                     <div id="single-right">
                         <div className="star-and-reviews" onClick={scrollToReviewSection}>
-                            <div>
+                            <div className="stars-up">
                                 <StarRating rating={avgRating} />
                             </div>
-                            <div>
+                            <div className="count-up">
                                 ({reviews.length})
                             </div>
                         </div>
@@ -66,13 +68,14 @@ export const ProductDetail = () => {
                             <div className="detail-name">{product.name}</div>
                             <div className="detail-price">${product.price}</div>
                         </div>
+                        <div className="detail-type">
+                            Organic {product.category} Tea
+                        </div>
                         <div className="product-description">
                             {product.description}
                         </div>
                         <div className="product-size">
-                            <hr></hr>
                             SIZE: {product.size}
-                            <hr></hr>
                         </div>
                         <div className="addcart-btn">
                             <button

@@ -44,11 +44,11 @@ export const EditReview = ({review, productId}) => {
     }
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-            <h2>Edit your review: </h2>
+        <div id="review-popup">
+        <form onSubmit={handleSubmit} className="rform">
+            <div className="reviewt">Edit your review: </div>
             <div className="review-box">
-                {errors.comment && <p className="error">{errors.comment}</p>}
+                {/* {errors.comment && <p className="error">{errors.comment}</p>} */}
                 <textarea
                     value={comment}
                     onChange={e => setComment(e.target.value)}
@@ -57,7 +57,7 @@ export const EditReview = ({review, productId}) => {
             </div>
 
             <div className="stars">
-                {errors.selectedStars && <p className="error">{errors.selectedStars}</p>}
+                {/* {errors.selectedStars && <p className="error">{errors.selectedStars}</p>} */}
                 {starArray.map((_, i) => (
                 <i
                     key={i}
