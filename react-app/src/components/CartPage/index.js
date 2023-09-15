@@ -45,44 +45,56 @@ const CartPage = () => {
 
     return (
         <div className="cartPage">
-            <h2>Your Cart ({cartItemCount} {cartItemCount === 1 ? 'item' : 'items'})</h2>
+            <div className="cart-title">Your Cart ({cartItemCount} {cartItemCount === 1 ? 'item' : 'items'})</div>
 
             {cartItemCount > 0 ? (
                 <>
                     {Object.values(cart).map(product => (
                 <div key={product.id} className="cartItem">
-                    <img src={product.primaryImg} alt={product.name} />
-                    <div className="productDetails">
-                        <span className="productName">{product.name}</span>
-                        <span className="productPrice">${product.price}</span>
+                    <NavLink to={`/products/${product.productId}`}>
+                        <img src={product.primaryImg} alt={product.name} />
+                    </NavLink>
+
+                    <div className="rcart">
+                        <div className="productDetails">
+                            <div className="productName">{product.name}</div>
+                            <div className="qtyControl">
+                                <button onClick={() => handleQtyChange(product.id, -1)}>
+                                    -
+                                </button>
+                                <span className="productQty">{product.qty}</span>
+                                <button onClick={() => handleQtyChange(product.id, 1)}>
+                                    +
+                                </button>
+                            </div>
+                        </div>
+                        <div className="cdelete">
+                            <button onClick={() => handleDelete(product.id)}><i class="far fa-trash-alt"></i></button>
+                            <div className="productPrice">${product.price}</div>
+                        </div>
                     </div>
-                    <div className="qtyControl">
-                        <button onClick={() => handleQtyChange(product.id, -1)}>-</button>
-                        <span className="productQty">{product.qty}</span>
-                        <button onClick={() => handleQtyChange(product.id, 1)}>+</button>
-                    </div>
-                    <div>
-                        <button onClick={() => handleDelete(product.id)}>Delete</button>
-                    </div>
+
                 </div>
             ))}
-                    <div className="subtotal">
-                        Total: ${calculateSubtotal().toFixed(2)}
-                    </div>
-                    <div className="checkout-btn">
-                        <button onClick={handleCheckout}>CHECKOUT</button>
-                        <NavLink to="/products/all">
-                            <button>CONTINUE SHOPPING</button>
-                        </NavLink>
+                    <div className="cbottom">
+                        <div className="subtotal">
+                            Total: ${calculateSubtotal().toFixed(2)}
+                        </div>
+                        <div className="checkout-btn">
+                            <button className="ok-btn" onClick={handleCheckout}>CHECKOUT</button>
+                            <NavLink to="/products/all">
+                                <button className="no-btn">Continue Shopping</button>
+                            </NavLink>
+                        </div>
                     </div>
                 </>
             ): (
-                <>
-                    <div>You cart is currently empty</div>
+                <div className="empty-cart">
+                    <div className="empty-msg">You cart is empty</div>
                     <NavLink to="/products/all">
-                        <button>CONTINUE SHOPPING</button>
+                        <button className="go-btn">SHOP NOW</button>
                     </NavLink>
-                </>
+                </div>
             )}
 
 

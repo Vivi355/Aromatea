@@ -10,12 +10,11 @@
 }
 
 #my-product-page {
-    /* padding-top: 120px; */
     padding: 120px 0;
+    margin-bottom: 200px;
 }
 
 .my-header {
-    /* border: 2px solid red; */
     max-width: 900px;
     margin: 0 auto;
     height: 50px;
