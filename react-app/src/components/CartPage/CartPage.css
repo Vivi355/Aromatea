@@ -84,6 +84,10 @@
     cursor: pointer;
 }
 
+.plus:disabled {
+    cursor: not-allowed;
+}
+
 .productPrice, .subtotal {
     color: rgba(47, 54, 75, 0.832);
 }

@@ -1,0 +1,36 @@
+.order-page {
+    font-family: 'EB Garamond', serif;
+    padding: 80px 50px;
+    text-align: center;
+    box-sizing: border-box;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.order-title {
+    font-size: 32px;
+    color: rgba(47, 54, 75, 0.832);
+    margin-bottom: 20px;
+    margin-top: 30px;
+}
+
+.order-thanku {
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+.order-img img {
+    padding-top: 20px;
+    width: 800px;
+    height: 400px;
+}
+
+.obtn {
+    height: 35px;
+    width: 220px;
+    border-radius: 5px;
+    background-color: white;
+    color: rgb(40,54,69);
+    font-weight: 700;
+    cursor: pointer;
+}

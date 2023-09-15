@@ -63,7 +63,10 @@ const CartPage = () => {
                                     -
                                 </button>
                                 <span className="productQty">{product.qty}</span>
-                                <button onClick={() => handleQtyChange(product.id, 1)}>
+                                <button onClick={() => handleQtyChange(product.id, 1)}
+                                disabled={product.qty >= 10}
+                                className="plus"
+                                >
                                     +
                                 </button>
                             </div>

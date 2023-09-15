@@ -14,9 +14,6 @@
   transform: translateX(-50%);
 }
 
-/* #profile-container {
-  border: 2px solid red;
-} */
 
 #profile-container button {
   border: none;
@@ -64,7 +61,6 @@
 
 .logout-btn, .greeting, .my-products, .new-product-link {
   border-top: 1px solid white;
-  /* border: 2px solid red; */
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -85,7 +81,6 @@
 
 .logo {
   font-size: 40px;
-  /* font-family: 'Patrick Hand', cursive; */
   font-family: 'EB Garamond', serif;
   font-weight: 500;
   color: rgba(55, 62, 81, 0.596);
@@ -103,7 +98,6 @@
   justify-content: space-evenly;
   gap: 40px;
   align-items: center;
-  /* width: 200px; */
 }
 
 .nav-cart {
