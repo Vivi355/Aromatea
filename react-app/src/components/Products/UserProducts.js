@@ -23,9 +23,14 @@ const UserProducts = () => {
 
     return (
         <div id="my-product-page">
-            <div>
-                <h2>My Products</h2>
-                <Link to="/products/new">Create New Product</Link>
+            <div className="my-header">
+                <div className="my-title">My Tea</div>
+                <div className="my-link">
+                    <Link to="/products/new">
+                        <i class="fas fa-plus-square"></i>
+                        New Tea
+                    </Link>
+                </div>
             </div>
 
             <div id="user-products-container">

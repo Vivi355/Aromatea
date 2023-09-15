@@ -33,12 +33,14 @@ export const ProductItem = ({product}) => {
 
                         <img className={`secondary-image ${isHovered ? 'image-fade-in' : ''}`} src={product.secondaryImg} alt={product.name}></img>
                         </Link>
+
                         {location.pathname === '/products/current' && (
                             <div className="product-btns">
-                                <Link to={`/products/${product.id}/edit`}>Edit</Link>
+                                <Link to={`/products/${product.id}/edit`}><i class="far fa-edit"></i></Link>
                                 <button
                                     onClick={() => deleteClick(product.id)}
-                                >Delete</button>
+                                    className="p-delete"
+                                ><i class="fas fa-trash-alt"></i></button>
                             </div>
                         )}
                     </div>

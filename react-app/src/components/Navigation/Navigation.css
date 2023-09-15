@@ -84,10 +84,11 @@
 }
 
 .logo {
-  font-size: 35px;
+  font-size: 40px;
   /* font-family: 'Patrick Hand', cursive; */
-  font-family: 'Raleway', sans-serif;
-  font-weight: 100px;
+  font-family: 'EB Garamond', serif;
+  font-weight: 500;
+  color: rgba(55, 62, 81, 0.596);
 }
 
 .logo > a, .account > a, .nav-cart > a {
