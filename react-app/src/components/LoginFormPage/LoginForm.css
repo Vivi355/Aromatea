@@ -6,10 +6,9 @@
 }
 
 .login-title {
-    margin-top: 100px;
+    margin-top: 150px;
     font-size: 24px;
     color: #2F364B;
-    /* margin-bottom: 10px; */
     text-align: center;
 }
 
@@ -27,19 +26,16 @@
     justify-content: center;
     align-items: center;
     gap: 20px;
-    /* border: 2px solid green; */
 }
 
 
 #login-container label.required input {
-    width: 250px;
+    width: 350px;
     height: 30px;
     padding: 10px;
     border: 1px solid #ccc;
-    /* border-radius: 4px; */
     font-size: 14px;
     color: #333;
-    /* outline: none; */
 }
 
 .login-error {
@@ -49,10 +45,10 @@
 }
 
 #login-container button {
-    width: 270px;
+    width: 370px;
     height: 50px;
     padding: 10px;
-    background-color: #2F364B; /* Dark blue background */
+    background-color: #2F364B;
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -64,6 +60,10 @@
 #login-container button:hover {
     color: rgb(168,134,103);
     transform: scale(1.01);
+}
+
+.go-create {
+    margin-bottom: 200px;
 }
 
 .go-create > a {
