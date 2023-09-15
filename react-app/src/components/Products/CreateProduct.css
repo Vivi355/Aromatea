@@ -3,24 +3,60 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    font-family: 'EB Garamond', serif;
+    padding: 50px;
+    background-color: #f5f5f5;
 }
 
 #product-form-container {
+    margin-top: 50px;
+    width: 80%;
+    max-width: 600px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 40px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+.form-type h2 {
+    text-align: center;
+    color: #2F364B;
+    margin-bottom: 20px;
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 10px 15px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+    color: gray;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.create-btns {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    width: 300px;
-    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
 }
 
-#product-form-container input {
-    width: 230px;
-    height: 30px;
+.create-btns button {
+    padding: 10px 20px;
+    background-color: #2F364B;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-#product-form-container textarea {
-    width: 230px;
-    height: 50px;
+input[type="file"] {
+    cursor: pointer;
+    border: none;
 }
