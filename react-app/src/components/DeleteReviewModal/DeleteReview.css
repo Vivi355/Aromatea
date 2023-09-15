@@ -1,0 +1,27 @@
+.review-delete-popup {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 180px;
+    width: 300px;
+}
+
+.two-btns {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    padding-top: 20px;
+}
+
+.two-btns button {
+    background-color: rgb(40,54,69);
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 50px;
+    height: 30px;
+}

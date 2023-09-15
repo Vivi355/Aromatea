@@ -1,0 +1,50 @@
+#review-popup {
+    /* border: 2px solid red; */
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* margin: 0 auto; */
+    /* margin-top: 20px; */
+    /* gap: 20px; */
+    width: 300px;
+    height: 280px;
+}
+
+.rform {
+    /* border: 2px solid green; */
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    height: 250px;
+    align-items: center;
+    /* margin-top: 10px; */
+}
+
+.reviewt {
+    font-size: 28px;
+    font-family: 'EB Garamond', serif;
+    /* padding-bottom: 20px; */
+}
+
+.review-box textarea {
+    width: 200px;
+    height: 100px;
+}
+
+.submit-review-button button {
+    height: 30px;
+    width: 200px;
+    background-color: rgb(40,54,69);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submit-review-button button:disabled {
+    background-color: rgba(40, 54, 69, 0.649);
+    cursor: not-allowed;
+}
