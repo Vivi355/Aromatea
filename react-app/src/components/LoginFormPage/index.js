@@ -36,14 +36,15 @@ function LoginFormPage() {
   };
 
   return (
-    <>
       <form onSubmit={handleSubmit} id="login-form">
-      <h1>Account Login</h1>
-        <ul>
+        <div className="login-title">Welcome Back.</div>
+        <div className="login-msg">Please Log In</div>
+        <div className="login-error">
           {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
+            <div key={idx}>{error}</div>
           ))}
-        </ul>
+        </div>
+
         <div id="login-container">
           <label className="required">
             {/* Email */}
@@ -67,19 +68,20 @@ function LoginFormPage() {
           </label>
 
           <button type="submit">Log In</button>
-
-          <div>
-            <NavLink to="/signup">
-              Create an Account
-            </NavLink>
-          </div>
           <button id="demo" onClick={loginDemoUser}>
             Demo User
           </button>
 
+          <div className="go-create">
+            NEW HERE?
+            <NavLink to="/signup">
+              CREATE AN ACCOUNT
+            </NavLink>
+          </div>
+
+
         </div>
       </form>
-    </>
   );
 }
 

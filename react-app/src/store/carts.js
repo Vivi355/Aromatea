@@ -31,7 +31,6 @@ export const clearCart = () => ({
 
 /************* Thunks ******************************/
 export const thunkLoadProducts = () => async (dispatch, getState) => {
-    // console.log('IN THE THUNK LOAD PRODUCTS');
     try {
         const response = await fetch('/api/cart/');
         if (!response.ok) {
@@ -54,7 +53,6 @@ export const thunkLoadProducts = () => async (dispatch, getState) => {
 
 
 export const thunkAddProduct = (productId, qty) => async (dispatch, getState) => {
-    // console.log('IN the thunk add product');
     try {
         const response = await fetch('/api/cart/', {
             method: 'POST',
@@ -148,7 +146,6 @@ const cartReducer = (state = initialState, action) => {
             return newState;
 
         case ADD_PRODUCT_TO_CART:
-            // console.log('in the reducer');
             newState = { ...state };
             newState.cart[action.product.id] = action.product;
             return newState;

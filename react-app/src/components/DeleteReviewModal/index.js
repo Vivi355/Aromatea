@@ -23,14 +23,14 @@ export const DeleteReview = ({reviewId, setReviewChange}) => {
                     className="delete-review"
                     onClick={() => handleDelete(reviewId)}
                 >
-                    Yes
+                    Delete
                 </button>
 
                 <button
                     className="keep-review"
                     onClick={closeModal}
                 >
-                    No
+                    Keep
                 </button>
             </div>
         </div>

@@ -37,7 +37,6 @@ export const ReviewShow = () => {
 
     // avg rating
     const avgRating = reviews.length ? (reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length).toFixed(2) : 0
-    // console.log(avgRating);
 
     // format date
     function formatDate(dateStr) {
@@ -88,7 +87,7 @@ export const ReviewShow = () => {
             <div className='review-content'>
                 {reviews.length === 0 && currentUser && product && product.userId && currentUser.id !== product.userId ? <p>Be the first to post a review!</p>
                 :
-                reviews.map(review => (
+                reviews.toReversed().map(review => (
                     <div key={review.id} className='review-item'>
                          <div className='bottom-border'></div>
                         <div className='rleft'>

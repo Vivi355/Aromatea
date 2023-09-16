@@ -93,8 +93,6 @@ def create_product():
             secondary_img=secondary_upload["url"],
         )
 
-        print('new product created', new_product)
-
         db.session.add(new_product)
         db.session.commit()
         return new_product.to_dict()

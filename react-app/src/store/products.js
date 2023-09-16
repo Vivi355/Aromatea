@@ -51,7 +51,6 @@ export const thunkGetAllProducts = () => async (dispatch) => {
 export const thunkGetSingleProduct = (id) => async (dispatch) => {
     try {
         if (!id) {
-            // console.log('Product Id is not provided');
             return;
         }
         const res = await fetch(`/api/products/${id}`);

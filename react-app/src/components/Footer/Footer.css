@@ -20,11 +20,12 @@
 
 .fa-github, .fa-linkedin{
     color: rgb(168,134,103);
-    font-size: 20px;
+    font-size: 30px;
 }
 
 .contact {
     display: flex;
     flex-direction: row;
-    gap: 10px;
+    gap: 20px;
+    padding-right: 40px;
 }

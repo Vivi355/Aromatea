@@ -6,16 +6,15 @@
     align-items: center;
     justify-content: center;
     margin: 0 auto;
-    max-width: 900px;
+    max-width: 1000px;
 }
 
 #my-product-page {
-    /* padding-top: 120px; */
     padding: 120px 0;
+    margin-bottom: 200px;
 }
 
 .my-header {
-    /* border: 2px solid red; */
     max-width: 900px;
     margin: 0 auto;
     height: 50px;
@@ -42,14 +41,14 @@
 .product-btns {
     display: none;
     position: absolute;
-    bottom: 0;
+    bottom: -35px;
     left: 0;
     right: 0;
     background-color: rgba(0, 0, 0, 0.6);
-    width: 280px;
+    width: 320px;
     color: white;
     text-align: center;
-    padding: 5px 0;
+    padding: 10px 0;
 }
 
 .single-product {
@@ -64,6 +63,7 @@
 
 .product-btns a {
     color: rgba(255, 255, 255, 0.805);
+    font-size: 20px;
 }
 
 .p-delete {
@@ -71,4 +71,5 @@
     color: rgba(255, 255, 255, 0.805);
     border: none;
     cursor: pointer;
+    font-size: 20px;
 }

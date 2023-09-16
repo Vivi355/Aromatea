@@ -20,12 +20,12 @@ export const DeleteProduct = ({productId}) => {
 
     return (
         <div id="delete-product-modal">
-            <h1>Confirm Delete</h1>
-            <p>Are you sure you want to remove this product from the listings?</p>
+            <h3>Confirm Delete</h3>
+            <div className="dlist">Are you sure you want to remove this product from the listings?</div>
 
             <div className="yes-no-btns">
-                <button onClick={deleteProduct}>Yes</button>
-                <button onClick={closeModal}>No</button>
+                <button onClick={deleteProduct}>Remove</button>
+                <button onClick={closeModal}>Keep</button>
             </div>
         </div>
     )

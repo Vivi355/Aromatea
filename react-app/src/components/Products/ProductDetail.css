@@ -108,7 +108,12 @@
     cursor: pointer;
 }
 
-.addcart-btn button:hover {
+.addcart-btn button:disabled {
+    background-color: rgba(40, 54, 69, 0.86);
+    cursor: not-allowed;
+}
+
+.addcart-btn button:not(:disabled):hover {
     color: rgb(168,134,103);
     transform: scale(1.01);
 }

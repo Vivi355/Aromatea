@@ -108,7 +108,7 @@ function CreateProduct({ product, formType }) {
     return (
         <form id="product-form" onSubmit={handleSubmit} encType="multipart/form-data">
             <div id="product-form-container">
-                <div>
+                <div className="form-type">
                     <h2>{formType}</h2>
                 </div>
 
@@ -116,7 +116,7 @@ function CreateProduct({ product, formType }) {
                 <label>
                     <input
                         type="text"
-                        placeholder="Product Name"
+                        placeholder="Tea Name"
                         value={name}
                         onChange={e => setName(e.target.value)}
                         required
@@ -127,7 +127,7 @@ function CreateProduct({ product, formType }) {
                 <label>
                     <textarea
                         type="textarea"
-                        placeholder="Product Description"
+                        placeholder="Description"
                         value={description}
                         onChange={e => setDescription(e.target.value)}
                         required
@@ -140,7 +140,7 @@ function CreateProduct({ product, formType }) {
                     onChange={e => setSelectSize(e.target.value)}
                     required
                 >
-                    <option value="" disabled>Product Size</option>
+                    <option value="" disabled>Tea Size</option>
                     {Object.entries(SIZES_ENUM).map(([sizeKey, sizeValue]) => (
                     <option key={sizeKey} value={sizeKey}>{sizeValue}</option>
                     ))}
@@ -154,6 +154,7 @@ function CreateProduct({ product, formType }) {
                         value={price}
                         onChange={e => setPrice(e.target.value)}
                         min="1"
+                        step='0.01'
                         required
                     />
 
@@ -164,7 +165,7 @@ function CreateProduct({ product, formType }) {
                     onChange={e => setSelectCategory(e.target.value)}
                     required
                 >
-                    <option value="" disabled>Select Type</option>
+                    <option value="" disabled>Tea Type</option>
                     {categories.map(category => (
                         <option key={category} value={category}>{category}</option>
                     ))}
@@ -182,7 +183,6 @@ function CreateProduct({ product, formType }) {
                     <input
                         type="file"
                         placeholder="File URL"
-                        // value={primaryImg}
                         onChange={e => setPrimaryImg(e.target.files[0])}
                         accept="image/png, image/jpeg, image/jpg, image/gif, image/pdf"
                         required={formType === "Create Product" || !product.primaryImg}
@@ -201,7 +201,6 @@ function CreateProduct({ product, formType }) {
                     <input
                         type="file"
                         placeholder="File URL"
-                        // value={secondaryImg}
                         onChange={e => setSecondaryImg(e.target.files[0])}
                         accept="image/png, image/jpeg, image/jpg, image/gif, image/pdf"
                         required={formType === "Create Product" || !product.secondaryImg}
@@ -211,7 +210,7 @@ function CreateProduct({ product, formType }) {
 
                 <div className="create-btns">
                     <NavLink to={"/products/current"}>
-                        <button>Back</button>
+                        <button>Go Back</button>
                     </NavLink>
                     <button type="submit">{formType}</button>
                 </div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, NavLink } from "react-router-dom";
 import { signUp } from "../../store/session";
 import './SignupForm.css';
 
@@ -36,7 +36,8 @@ function SignupFormPage() {
     e.preventDefault();
 
     // valid email
-    if (!email.includes('@')) {
+    const okEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    if (!okEmail.test(email)) {
       setErrors(prevErrors => ({
         ...prevErrors,
         email: 'The provided email is invalid'
@@ -57,10 +58,10 @@ function SignupFormPage() {
   return (
     <>
       <form onSubmit={handleSubmit} id="signup-form">
-      <h1>Create Account</h1>
-        <ul>
-          {Object.values(errors).map((error, idx) => <li key={idx}>{error}</li>)}
-        </ul>
+      <div className="signup-title">Sign Up</div>
+        <div className="signup-error">
+          {Object.values(errors).map((error, idx) => <div key={idx}>{error}</div>)}
+        </div>
 
         <div id="signup-container">
 
@@ -122,7 +123,13 @@ function SignupFormPage() {
             />
           </label>
 
-          <button type="submit">CREATE</button>
+          <button type="submit" className="signup-btn">SIGN UP</button>
+          <div className="go-create">
+            ALREADY HAVE AN ACCOUNT?
+            <NavLink to="/login">
+              LOG IN
+            </NavLink>
+          </div>
         </div>
 
       </form>

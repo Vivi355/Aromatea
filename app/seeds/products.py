@@ -43,7 +43,7 @@ def seed_products():
 
 ##############################################################
     product4 = Product(
-        user_id=1,
+        user_id=6,
         category=CategoryEnum.OOLONG,
         name='Tropical Coconut',
         description='Tropical Coconut combines floral and delicately sweet Bao Zhong oolong tea with real juicy pineapple and creamy coconut.',
@@ -66,12 +66,77 @@ def seed_products():
         secondary_img='https://capstone-aromatea.s3.us-west-1.amazonaws.com/SilverNeedles-2.jpg'
     )
 
+#################################################
+    product6 = Product(
+        user_id=4,
+        category=CategoryEnum.BLACK,
+        name='English Breakfast',
+        description='This English Breakfast is malty and robust with sweet, chocolatey undertones and a brisk body that can stand up to milk and sugar.',
+        price=39.9,
+        size=ProductSize.ONE_POUND,
+        primary_img='https://capstone-aromatea.s3.us-west-1.amazonaws.com/EnglishBreakfast-1.jpg',
+        secondary_img='https://capstone-aromatea.s3.us-west-1.amazonaws.com/EnglishBreakfast-2.jpg'
+    )
+
+#################################################
+    product7 = Product(
+        user_id=5,
+        category=CategoryEnum.BOTANICAL,
+        name='Turmeric Ginger',
+        description='The awesome, centering energy of golden turmeric root is enhanced by strengthening licorice root and zesty ginger in this Ayurveda inspired blend.',
+        price=15.75,
+        size=ProductSize.QUARTER_POUND,
+        primary_img='https://capstone-aromatea.s3.us-west-1.amazonaws.com/TurmericGinger-1.jpg',
+        secondary_img='https://capstone-aromatea.s3.us-west-1.amazonaws.com/TurmericGinger-2.jpg'
+    )
+
+#################################################
+    product8 = Product(
+        user_id=6,
+        category=CategoryEnum.OOLONG,
+        name='Ruby Oolong',
+        description='This full-bodied oolong tea is deeply oxidized and slowly baked to bring out complex layers of cacao, raisins, and black cherry with a sublime, elegant structure.',
+        price=40.35,
+        size=ProductSize.QUARTER_POUND,
+        primary_img='https://capstone-aromatea.s3.us-west-1.amazonaws.com/RubyOolong-1.jpg',
+        secondary_img='https://capstone-aromatea.s3.us-west-1.amazonaws.com/RubyOolong-2.jpg'
+    )
+
+#################################################
+    product9 = Product(
+        user_id=4,
+        category=CategoryEnum.GREEN,
+        name='Jade Cloud',
+        description='Jade Cloud is a lively green tea that we created over a decade ago in collaboration with artisans at the Xuan En Organic Yisheng Tea Cooperative in the remote mountains of Hubei province.',
+        price=44.15,
+        size=ProductSize.ONE_POUND,
+        primary_img='https://capstone-aromatea.s3.us-west-1.amazonaws.com/JadeCloud-1.jpg',
+        secondary_img='https://capstone-aromatea.s3.us-west-1.amazonaws.com/JadeCloud-2.jpg'
+    )
+
+#################################################
+    product10 = Product(
+        user_id=5,
+        category=CategoryEnum.WHITE,
+        name='White Tea Rose',
+        description='This white tea blend features a base of White Peony and presents a fresh floral bouquet with a bright minty finish.',
+        price=22.05,
+        size=ProductSize.QUARTER_POUND,
+        primary_img='https://capstone-aromatea.s3.us-west-1.amazonaws.com/WhiteTeaRoseMelange-1.jpg',
+        secondary_img='https://capstone-aromatea.s3.us-west-1.amazonaws.com/WhiteTeaRoseMelange-2.jpg'
+    )
+
 
     db.session.add(product1)
     db.session.add(product2)
     db.session.add(product3)
     db.session.add(product4)
     db.session.add(product5)
+    db.session.add(product6)
+    db.session.add(product7)
+    db.session.add(product8)
+    db.session.add(product9)
+    db.session.add(product10)
 
     db.session.commit()
 
