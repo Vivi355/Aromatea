@@ -37,7 +37,6 @@ export const ReviewShow = () => {
 
     // avg rating
     const avgRating = reviews.length ? (reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length).toFixed(2) : 0
-    // console.log(avgRating);
 
     // format date
     function formatDate(dateStr) {

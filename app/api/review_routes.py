@@ -51,7 +51,6 @@ def edit_review(id):
     """
     Updata a review by id
     """
-    print('EDIT FORM BACKEDN !!!!!!!!!!!!!!!')
     review_to_edit = Review.query.get(id)
 
     form = CreateReviewForm()
