@@ -25,7 +25,7 @@
     margin-bottom: 20px;
 }
 
-#product-form-container > input, textarea, select {
+input, textarea, select {
     width: 100%;
     padding: 10px 15px;
     margin: 10px 0;

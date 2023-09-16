@@ -154,6 +154,7 @@ function CreateProduct({ product, formType }) {
                         value={price}
                         onChange={e => setPrice(e.target.value)}
                         min="1"
+                        step='0.01'
                         required
                     />
 

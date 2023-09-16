@@ -36,7 +36,8 @@ function SignupFormPage() {
     e.preventDefault();
 
     // valid email
-    if (!email.includes('@')) {
+    const okEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    if (!okEmail.test(email)) {
       setErrors(prevErrors => ({
         ...prevErrors,
         email: 'The provided email is invalid'
