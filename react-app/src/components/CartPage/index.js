@@ -72,7 +72,7 @@ const CartPage = () => {
                             </div>
                         </div>
                         <div className="cdelete">
-                            <button onClick={() => handleDelete(product.id)}><i class="far fa-trash-alt"></i></button>
+                            <button onClick={() => handleDelete(product.id)}><i className="far fa-trash-alt"></i></button>
                             <div className="productPrice">${product.price}</div>
                         </div>
                     </div>

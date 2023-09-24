@@ -27,7 +27,7 @@ const UserProducts = () => {
                 <div className="my-title">My Tea</div>
                 <div className="my-link">
                     <Link to="/products/new">
-                        <i class="fas fa-plus-square"></i>
+                        <i className="fas fa-plus-square"></i>
                         New Tea
                     </Link>
                 </div>

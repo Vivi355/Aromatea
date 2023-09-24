@@ -46,7 +46,7 @@ export const ProductDetail = () => {
         <>
             <div id="detail-page">
                 <div className="nav-back">
-                    <NavLink to={'/products/all'}>All Tea</NavLink><i class="fas fa-slash fa-rotate-270 fa-xs"></i> {product.name}
+                    <NavLink to={'/products/all'}>All Tea</NavLink><i className="fas fa-slash fa-rotate-270 fa-xs"></i> {product.name}
                 </div>
 
                 <div className="single-product-container">
