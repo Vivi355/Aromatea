@@ -8,6 +8,10 @@ import { ReviewShow } from "../Reviews/ReviewShow";
 import StarRating from "../Reviews/StarRating";
 import { thunkLoadProducts } from "../../store/carts";
 
+// modal use
+import { useModal } from "../../context/Modal";
+import CartModal from "../CartModal";
+
 export const ProductDetail = () => {
     const dispatch = useDispatch();
     const history = useHistory();
@@ -15,20 +19,24 @@ export const ProductDetail = () => {
     const product = useSelector(state => state.products.singleProduct);
     const currentUser = useSelector(state => state.session.user);
     const reviews = Object.values(useSelector(state => state.reviews.productReviews));
-    // ref for the review section
+    // ref for the review section, scroll to that section when click
     const reviewSectionRef = React.useRef(null);
+
+    // modal
+    const {openModal} = useModal();
 
     useEffect(() => {
         dispatch(thunkGetSingleProduct(productId));
     }, [dispatch, productId])
 
-    // handle click for product add to cart
+    // handle product add to cart functionality
     const handleAddToCart = async () => {
         if (!currentUser) {
             history.push('/login')
         } else {
             await dispatch(thunkAddProduct(product.id, 1))
-            dispatch(thunkLoadProducts())
+            dispatch(thunkLoadProducts());
+            openModal(<CartModal />)
         }
     }
 
@@ -37,6 +45,7 @@ export const ProductDetail = () => {
         reviewSectionRef.current.scrollIntoView({behavior: 'smooth'})
     }
 
+    // calculate the average rating for review section
     const avgRating = reviews.length ? (reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length).toFixed(2) : 0;
 
 

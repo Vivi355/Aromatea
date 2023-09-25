@@ -1,10 +1,9 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./CartPage.css"
-import { thunkLoadProducts, thunkEditQty, thunkDeleteFromCart } from "../../store/carts";
+import { thunkLoadProducts, thunkEditQty, thunkDeleteFromCart, thunkClearCart } from "../../store/carts";
 import { NavLink, useHistory } from "react-router-dom";
-import { thunkClearCart } from "../../store/carts";
-// import { thunkGetSingleProduct } from "../../store/products";
+import Cart from "./Cart";
 
 const CartPage = () => {
     const dispatch = useDispatch();
@@ -49,7 +48,7 @@ const CartPage = () => {
 
             {cartItemCount > 0 ? (
                 <>
-                    {Object.values(cart).map(product => (
+                    {/* {Object.values(cart).map(product => (
                 <div key={product.id} className="cartItem">
                     <NavLink to={`/products/${product.productId}`}>
                         <img src={product.primaryImg} alt={product.name} />
@@ -78,7 +77,16 @@ const CartPage = () => {
                     </div>
 
                 </div>
-            ))}
+            ))} */}
+                <div className="scroll-container">
+                    <Cart
+                        cart={cart}
+                        handleQtyChange={handleQtyChange}
+                        handleDelete={handleDelete}
+                        handleCheckout={handleCheckout}
+                        isModal={false}
+                    />
+                </div>
                     <div className="cbottom">
                         <div className="subtotal">
                             Total: ${calculateSubtotal().toFixed(2)}

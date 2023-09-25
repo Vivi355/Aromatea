@@ -6,6 +6,10 @@ import './Navigation.css';
 // import OpenModalButton from '../OpenModalButton';
 import UserProfileDropdown from './UserAccountDropdown';
 
+// cart modal
+import CartModal from '../CartModal';
+import { useModal } from '../../context/Modal';
+
 function Navigation({ isLoaded }){
 	const sessionUser = useSelector(state => state.session.user);
 	const cart = useSelector(state => state.cart.cart);
@@ -13,6 +17,15 @@ function Navigation({ isLoaded }){
 	const cartItemCount = sessionUser
     ? Object.values(cart).reduce((acc, product) => acc + product.qty, 0)
     : 0;
+
+	const {openModal} = useModal();
+	const {modalContent} = useModal();
+	// only show modal content, hide nav
+	if (modalContent) return null;
+
+	const handleCartClick = () => {
+		openModal(<CartModal />);
+	}
 
 	return (
 		<>
@@ -37,10 +50,10 @@ function Navigation({ isLoaded }){
 							<NavLink to="/login">ACCOUNT</NavLink>
 						}
 					</div>
-					<div className='nav-cart'>
-						<NavLink to="/cart">
+					<div className='nav-cart' onClick={handleCartClick} style={{cursor: 'pointer'}}>
+						{/* <NavLink to="/cart"> */}
 							CART
-						</NavLink>
+						{/* </NavLink> */}
 						<div className='item-count'>
 							{`${cartItemCount}`}
 						</div>
