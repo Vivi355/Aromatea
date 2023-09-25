@@ -92,7 +92,7 @@ export const ReviewShow = () => {
                          <div className='bottom-border'></div>
                         <div className='rleft'>
                             <div className='circle-icon'>
-                                <i class="fas fa-circle fa-lg"></i>
+                                <i className="fas fa-circle fa-lg"></i>
                             </div>
                             <div className='author-date'>
                                 {review.Author &&
@@ -113,8 +113,8 @@ export const ReviewShow = () => {
                             <div className='delete-review'>
                                 {currentUser && currentUser.id === review.userId && (
                                     <>
-                                        <button className='ubtn' onClick={() => handleEdit(review)}><i class="far fa-edit"></i></button>
-                                        <button className='dbtn' onClick={() => handleDelete(review.id)}><i class="fas fa-trash-alt"></i></button>
+                                        <button className='ubtn' onClick={() => handleEdit(review)}><i className="far fa-edit"></i></button>
+                                        <button className='dbtn' onClick={() => handleDelete(review.id)}><i className="fas fa-trash-alt"></i></button>
                                     </>
                                 )}
 

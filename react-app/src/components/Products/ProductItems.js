@@ -36,11 +36,11 @@ export const ProductItem = ({product}) => {
 
                         {location.pathname === '/products/current' && (
                             <div className="product-btns">
-                                <Link to={`/products/${product.id}/edit`}><i class="far fa-edit"></i></Link>
+                                <Link to={`/products/${product.id}/edit`}><i className="far fa-edit"></i></Link>
                                 <button
                                     onClick={() => deleteClick(product.id)}
                                     className="p-delete"
-                                ><i class="fas fa-trash-alt"></i></button>
+                                ><i className="fas fa-trash-alt"></i></button>
                             </div>
                         )}
                     </div>

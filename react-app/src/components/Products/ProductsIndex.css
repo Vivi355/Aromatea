@@ -18,21 +18,25 @@
     margin-bottom: 400px;
     align-items: center;
     justify-content: center;
-    /* padding-bottom: 200px; */
-    /* margin-top: 50px; */
-
 }
 
 .header-section {
-    /* border: 2px solid red; */
     margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
 }
 
-.header-section > a {
+.back-link > a {
     text-decoration: none;
     color: black;
     padding-left: 40px;
+}
 
+.sort-price {
+    border: none;
+    background-color: white;
+    margin-top: 3px;
+    color: rgb(168,134,103);
 }
 
 .first-img img {

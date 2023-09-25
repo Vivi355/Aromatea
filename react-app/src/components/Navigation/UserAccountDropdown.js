@@ -35,24 +35,24 @@ function UserProfileDropdown({ user }) {
     return (
         <div ref={dropdownRef} id="profile-container">
             <button onClick={() => setShowMenu(!showMenu)}>
-                MY ACCOUNT <i class="fas fa-caret-down fa-xs"></i>
+                MY ACCOUNT <i className="fas fa-caret-down fa-xs"></i>
             </button>
             {showMenu && (
                 <ul className="profile-dropdown">
                     <div className="greeting">
-                        <i class="far fa-user"></i>
+                        <i className="far fa-user"></i>
                         {user?.firstName}
                     </div>
                     <div className="my-products">
-                        <i class="fas fa-leaf"></i>
+                        <i className="fas fa-leaf"></i>
                         <NavLink to="/products/current" onClick={() => setShowMenu(false)}>My Tea</NavLink>
                     </div>
                     <div className="new-product-link">
-                        <i class="fas fa-plus-square"></i>
+                        <i className="fas fa-plus-square"></i>
                         <NavLink to="/products/new">New Tea</NavLink>
                     </div>
                     <div className="logout-btn">
-                        <i class="fas fa-sign-out-alt"></i>
+                        <i className="fas fa-sign-out-alt"></i>
                         <button
                         onClick={handleLogout} className="btn"
                         >SIGN OUT</button>
