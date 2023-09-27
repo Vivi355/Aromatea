@@ -66,25 +66,27 @@ export const ReviewShow = () => {
     return (
         <div id='review-container'>
             <div className='review-title'>Customer Reviews</div>
-            <div className='stars-and-btn'>
-                {/* <div className='bottom-border'></div> */}
-                <div className='stats-reviews'>
-                    <div className='rnumber'>
-                        {avgRating}
-                    </div>
-                    <div className='rstars'>
-                        <StarRating rating={avgRating} />
-                    </div>
-                    <div className='rcount'>
-                        {reviews.length} {reviews.length === 1 ? 'review' : 'reviews'}
-                    </div>
-                </div>
-                <div className='post-review-btn'>
-                    {reviewBtn() && <button onClick={handleClick}>WRITE A REVIEW</button>}
-                </div>
-            </div>
+
 
             <div className='review-content'>
+                <div className='stars-and-btn'>
+                    {/* <div className='bottom-border'></div> */}
+                    <div className='stats-reviews'>
+                        <div className='rnumber'>
+                            {avgRating}
+                        </div>
+                        <div className='rstars'>
+                            <StarRating rating={avgRating} />
+                        </div>
+                        <div className='rcount'>
+                            {reviews.length} {reviews.length === 1 ? 'review' : 'reviews'}
+                        </div>
+                    </div>
+                    <div className='post-review-btn'>
+                        {reviewBtn() && <button onClick={handleClick}>WRITE A REVIEW</button>}
+                    </div>
+                </div>
+
                 {reviews.length === 0 && currentUser && product && product.userId && currentUser.id !== product.userId ? <p>Be the first to post a review!</p>
                 :
                 reviews.toReversed().map(review => (

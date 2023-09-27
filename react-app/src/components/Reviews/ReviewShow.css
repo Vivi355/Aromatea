@@ -1,5 +1,10 @@
 #review-container {
     margin-bottom: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
 }
 
 /* * {
@@ -17,12 +22,15 @@
 .stars-and-btn {
     display: flex;
     flex-direction: row;
-    padding-left: 30px;
-    margin: 20px 200px;
-    justify-content: center;
-    align-items: center;
+    /* padding-left: 30px; */
+    /* margin: 40px 200px; */
+    margin-bottom: 80px;
+    padding-left: 50px;
+    justify-content: flex-start;
+    align-items: flex-start;
     height: 100px;
     position: relative;
+    /* border: 2px solid red; */
 }
 
 /* .bottom-border {
@@ -62,9 +70,11 @@
 .post-review-btn {
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    align-items: center;
+    margin-top: 30px;
+    /* justify-content: flex-end; */
+    /* align-items: flex-end; */
     padding-left: 100px;
+    /* border: 2px solid red; */
 }
 
 .post-review-btn button {
@@ -86,6 +96,13 @@
 
 .review-content {
     margin: 20px 200px;
+    width: 65%;
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* align-items: center; */
+    /* padding-left: 20px; */
+    /* border: 2px solid red; */
+
     /* overflow-x: auto; */
     /* max-width: 100%; */
     /* white-space: nowrap; */
