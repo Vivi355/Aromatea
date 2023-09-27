@@ -1,3 +1,6 @@
+#detail-page {
+    position: relative;
+}
 
 .single-product-container {
     position: relative;
@@ -5,6 +8,8 @@
     flex-direction: row;
     margin-bottom: 200px;
     gap: 40px;
+    justify-content: center;
+    align-items: center;
 }
 
 #single-right{

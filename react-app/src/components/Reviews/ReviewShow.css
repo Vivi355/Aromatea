@@ -2,18 +2,19 @@
     margin-bottom: 300px;
 }
 
+* {
+    box-sizing: border-box;
+}
+
 .review-title {
     font-size: 48px;
     font-family: 'EB Garamond', serif;
     display: flex;
     justify-content: center;
-    /* margin-bottom: 30px; */
     padding-bottom: 50px;
 }
 
 .stars-and-btn {
-    /* border: 2px solid green; */
-    /* border-bottom: 1px solid rgb(168,134,103); */
     display: flex;
     flex-direction: row;
     padding-left: 30px;
@@ -72,7 +73,6 @@
     color: rgb(168,134,103);
     border-color: rgb(168,134,103);
     font-weight: 700;
-    /* border: none; */
     height: 60px;
     width: 180px;
     cursor: pointer;
@@ -85,14 +85,17 @@
 /***************************/
 
 .review-content {
-    /* border: 2px solid red; */
     margin: 20px 200px;
+    overflow-x: auto;
+    max-width: 100%;
+    white-space: nowrap;
+    /* border: 2px solid red; */
 }
 
 .review-item {
-    /* border: 2px solid red; */
     display: flex;
     flex-direction: row;
+    justify-content: flex-start;
     gap: 30px;
     height: 90px;
     position: relative;
@@ -104,7 +107,6 @@
     flex-direction: row;
     align-items: flex-start;
     gap: 10px;
-    /* width: 200px; */
     padding-right: 10px;
 }
 

@@ -79,7 +79,7 @@ const CartModal = () => {
                 </>
             ): (
                 <div className="empty-cart">
-                    <div className="empty-msg">You cart is empty</div>
+                    <div className="empty-msg">Your cart is empty</div>
                     <NavLink to="/products/all">
                         <button onClick={closeModal} className="go-b">SHOP NOW</button>
                     </NavLink>

@@ -101,7 +101,7 @@ const CartPage = () => {
                 </>
             ): (
                 <div className="empty-cart">
-                    <div className="empty-msg">You cart is empty</div>
+                    <div className="empty-msg">Your cart is empty</div>
                     <NavLink to="/products/all">
                         <button className="go-btn">SHOP NOW</button>
                     </NavLink>
