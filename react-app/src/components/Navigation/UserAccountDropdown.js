@@ -49,7 +49,7 @@ function UserProfileDropdown({ user }) {
                     </div>
                     <div className="new-product-link">
                         <i className="fas fa-plus-square"></i>
-                        <NavLink to="/products/new">New Tea</NavLink>
+                        <NavLink to="/products/new" onClick={() => setShowMenu(false)}>New Tea</NavLink>
                     </div>
                     <div className="logout-btn">
                         <i className="fas fa-sign-out-alt"></i>

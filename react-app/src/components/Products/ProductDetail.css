@@ -1,10 +1,16 @@
+/* #detail-page {
+    position: relative;
+} */
 
 .single-product-container {
-    position: relative;
+    /* position: relative; */
     display: flex;
     flex-direction: row;
     margin-bottom: 200px;
-    gap: 40px;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+
 }
 
 #single-right{
@@ -15,7 +21,8 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    padding-top: 60px;
+    padding-top: 90px;
+    margin-top: -200px;
 }
 
 .nav-back {
@@ -26,7 +33,6 @@
 .nav-back > a {
     text-decoration: none;
     color: black;
-    padding-left: 40px;
 }
 
 .star-and-reviews {
@@ -46,12 +52,12 @@
 .images {
     width: 450px;
     padding-right: 90px;
+    margin-right: 40px;
 }
 
 .images img {
     width: 450px;
     height: 450px;
-    padding-left: 40px;
 }
 
 .name-price {

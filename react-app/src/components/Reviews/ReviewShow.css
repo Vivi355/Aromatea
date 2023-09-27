@@ -1,30 +1,44 @@
 #review-container {
     margin-bottom: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
 }
+
+/* * {
+    box-sizing: border-box;
+} */
 
 .review-title {
     font-size: 48px;
     font-family: 'EB Garamond', serif;
     display: flex;
     justify-content: center;
-    /* margin-bottom: 30px; */
     padding-bottom: 50px;
 }
 
 .stars-and-btn {
-    /* border: 2px solid green; */
-    /* border-bottom: 1px solid rgb(168,134,103); */
     display: flex;
     flex-direction: row;
-    padding-left: 30px;
-    margin: 20px 200px;
-    justify-content: center;
-    align-items: center;
+    margin-bottom: 80px;
+    padding-left: 50px;
+    justify-content: space-between;
+    align-items: space-between;
     height: 100px;
     position: relative;
 }
 
-.bottom-border {
+.graph {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    max-width: calc(100% - 160px);
+    margin-left: 50px;
+}
+
+/* .bottom-border {
     position: absolute;
     bottom: 0;
     left: 50%;
@@ -32,7 +46,7 @@
     border-bottom: 1px solid rgb(168,134,103);
     transform: translateX(-50%);
     margin-bottom: 10px;
-}
+} */
 
 .stats-reviews {
     display: flex;
@@ -61,8 +75,7 @@
 .post-review-btn {
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    align-items: center;
+    margin-top: 30px;
     padding-left: 100px;
 }
 
@@ -72,7 +85,6 @@
     color: rgb(168,134,103);
     border-color: rgb(168,134,103);
     font-weight: 700;
-    /* border: none; */
     height: 60px;
     width: 180px;
     cursor: pointer;
@@ -85,18 +97,20 @@
 /***************************/
 
 .review-content {
-    /* border: 2px solid red; */
     margin: 20px 200px;
+    width: 65%;
 }
 
 .review-item {
-    /* border: 2px solid red; */
     display: flex;
     flex-direction: row;
+    justify-content: flex-start;
     gap: 30px;
     height: 90px;
-    position: relative;
-    padding-bottom: 20px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid rgb(168,134,103);
+    width: 80%;
+    margin-bottom: 20px;
 }
 
 .rleft {
@@ -104,7 +118,6 @@
     flex-direction: row;
     align-items: flex-start;
     gap: 10px;
-    /* width: 200px; */
     padding-right: 10px;
 }
 

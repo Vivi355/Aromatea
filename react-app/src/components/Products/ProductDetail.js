@@ -54,12 +54,11 @@ export const ProductDetail = () => {
     return (
         <>
             <div id="detail-page">
-                <div className="nav-back">
-                    <NavLink to={'/products/all'}>All Tea</NavLink><i className="fas fa-slash fa-rotate-270 fa-xs"></i> {product.name}
-                </div>
-
                 <div className="single-product-container">
                     <div className="images">
+                        <div className="nav-back">
+                            <NavLink to={'/products/all'}>All Tea</NavLink><i className="fas fa-slash fa-rotate-270 fa-xs"></i> {product.name}
+                        </div>
                         <img src={product.primaryImg} alt={product.name} style={{paddingBottom: "10px"}}></img>
                         {product.secondaryImg ? <img src={product.secondaryImg} alt={product.name}></img> : null}
                     </div>
@@ -94,6 +93,7 @@ export const ProductDetail = () => {
                         </div>
                     </div>
                 </div>
+
             </div>
             <div className="review-section" ref={reviewSectionRef}>
                 <ReviewShow />

@@ -9,6 +9,8 @@ import { useModal } from '../../context/Modal';
 import { DeleteReview } from '../DeleteReviewModal';
 import { EditReview } from './EditReview';
 
+import ReviewGraph from './ReviewGraph';
+
 export const ReviewShow = () => {
     const dispatch = useDispatch()
     const {productId} = useParams();
@@ -66,30 +68,38 @@ export const ReviewShow = () => {
     return (
         <div id='review-container'>
             <div className='review-title'>Customer Reviews</div>
-            <div className='stars-and-btn'>
-                <div className='bottom-border'></div>
-                <div className='stats-reviews'>
-                    <div className='rnumber'>
-                        {avgRating}
-                    </div>
-                    <div className='rstars'>
-                        <StarRating rating={avgRating} />
-                    </div>
-                    <div className='rcount'>
-                        {reviews.length} {reviews.length === 1 ? 'review' : 'reviews'}
-                    </div>
-                </div>
-                <div className='post-review-btn'>
-                    {reviewBtn() && <button onClick={handleClick}>WRITE A REVIEW</button>}
-                </div>
-            </div>
+
 
             <div className='review-content'>
+                <div className='stars-and-btn'>
+                    {/* <div className='bottom-border'></div> */}
+                    <div className='stats-reviews'>
+                        <div className='rnumber'>
+                            {avgRating}
+                        </div>
+                        <div className='rstars'>
+                            <StarRating rating={avgRating} />
+                        </div>
+                        <div className='rcount'>
+                            {reviews.length} {reviews.length === 1 ? 'review' : 'reviews'}
+                        </div>
+                    </div>
+                    <div className='graph'>
+                        <ReviewGraph reviews={reviews} />
+                    </div>
+                    <div className='post-review-btn'>
+                        {reviewBtn() ?
+                            <button onClick={handleClick}>WRITE A REVIEW</button> :
+                            <div style={{width: '180px', height: '60px'}}></div>
+                        }
+                    </div>
+                </div>
+
                 {reviews.length === 0 && currentUser && product && product.userId && currentUser.id !== product.userId ? <p>Be the first to post a review!</p>
                 :
                 reviews.toReversed().map(review => (
                     <div key={review.id} className='review-item'>
-                         <div className='bottom-border'></div>
+                         {/* <div className='bottom-border'></div> */}
                         <div className='rleft'>
                             <div className='circle-icon'>
                                 <i className="fas fa-circle fa-lg"></i>
