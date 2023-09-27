@@ -67,7 +67,7 @@ export const ReviewShow = () => {
         <div id='review-container'>
             <div className='review-title'>Customer Reviews</div>
             <div className='stars-and-btn'>
-                <div className='bottom-border'></div>
+                {/* <div className='bottom-border'></div> */}
                 <div className='stats-reviews'>
                     <div className='rnumber'>
                         {avgRating}
@@ -89,7 +89,7 @@ export const ReviewShow = () => {
                 :
                 reviews.toReversed().map(review => (
                     <div key={review.id} className='review-item'>
-                         <div className='bottom-border'></div>
+                         {/* <div className='bottom-border'></div> */}
                         <div className='rleft'>
                             <div className='circle-icon'>
                                 <i className="fas fa-circle fa-lg"></i>

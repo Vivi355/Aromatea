@@ -7,9 +7,10 @@
     display: flex;
     flex-direction: row;
     margin-bottom: 200px;
-    gap: 40px;
+    gap: 30px;
     justify-content: center;
     align-items: center;
+
 }
 
 #single-right{
@@ -31,7 +32,7 @@
 .nav-back > a {
     text-decoration: none;
     color: black;
-    padding-left: 40px;
+    /* padding-left: 40px; */
 }
 
 .star-and-reviews {
@@ -51,12 +52,14 @@
 .images {
     width: 450px;
     padding-right: 90px;
+    margin-right: 40px;
+    /* border: 2px solid red; */
 }
 
 .images img {
     width: 450px;
     height: 450px;
-    padding-left: 40px;
+    /* padding-left: 40px; */
 }
 
 .name-price {
