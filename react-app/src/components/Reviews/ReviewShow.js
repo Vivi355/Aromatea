@@ -9,6 +9,8 @@ import { useModal } from '../../context/Modal';
 import { DeleteReview } from '../DeleteReviewModal';
 import { EditReview } from './EditReview';
 
+import ReviewGraph from './ReviewGraph';
+
 export const ReviewShow = () => {
     const dispatch = useDispatch()
     const {productId} = useParams();
@@ -82,8 +84,14 @@ export const ReviewShow = () => {
                             {reviews.length} {reviews.length === 1 ? 'review' : 'reviews'}
                         </div>
                     </div>
+                    <div className='graph'>
+                        <ReviewGraph reviews={reviews} />
+                    </div>
                     <div className='post-review-btn'>
-                        {reviewBtn() && <button onClick={handleClick}>WRITE A REVIEW</button>}
+                        {reviewBtn() ?
+                            <button onClick={handleClick}>WRITE A REVIEW</button> :
+                            <div style={{width: '180px', height: '60px'}}></div>
+                        }
                     </div>
                 </div>
 

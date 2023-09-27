@@ -22,15 +22,20 @@
 .stars-and-btn {
     display: flex;
     flex-direction: row;
-    /* padding-left: 30px; */
-    /* margin: 40px 200px; */
     margin-bottom: 80px;
     padding-left: 50px;
-    justify-content: flex-start;
-    align-items: flex-start;
+    justify-content: space-between;
+    align-items: space-between;
     height: 100px;
     position: relative;
-    /* border: 2px solid red; */
+}
+
+.graph {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    max-width: calc(100% - 160px);
+    margin-left: 50px;
 }
 
 /* .bottom-border {
@@ -71,10 +76,7 @@
     display: flex;
     flex-direction: row;
     margin-top: 30px;
-    /* justify-content: flex-end; */
-    /* align-items: flex-end; */
     padding-left: 100px;
-    /* border: 2px solid red; */
 }
 
 .post-review-btn button {
@@ -97,15 +99,6 @@
 .review-content {
     margin: 20px 200px;
     width: 65%;
-    /* display: flex; */
-    /* flex-direction: column; */
-    /* align-items: center; */
-    /* padding-left: 20px; */
-    /* border: 2px solid red; */
-
-    /* overflow-x: auto; */
-    /* max-width: 100%; */
-    /* white-space: nowrap; */
 }
 
 .review-item {
