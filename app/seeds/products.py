@@ -126,6 +126,67 @@ def seed_products():
         secondary_img='https://capstone-aromatea.s3.us-west-1.amazonaws.com/WhiteTeaRoseMelange-2.jpg'
     )
 
+#################################################
+    product11 = Product(
+        user_id=7,
+        category=CategoryEnum.BOTANICAL,
+        name='Blueberry Rooibos',
+        description='Robust flavor of rooibos with fruity notes of elderberries, blueberries and hibiscus to create a tart yet sweet herbal blend.',
+        price=18.90,
+        size=ProductSize.QUARTER_POUND,
+        primary_img='https://capstone-aromatea.s3.us-west-1.amazonaws.com/BlueberryRooibos.jpg',
+        secondary_img='https://capstone-aromatea.s3.us-west-1.amazonaws.com/BlueberryRooibos2.jpg'
+    )
+
+#################################################
+    product12 = Product(
+        user_id=7,
+        category=CategoryEnum.BLACK,
+        name='Masala Chai',
+        description='Hot and citrusy ginger and sweet cinnamon, with accents of pungent cracked black pepper and fragrant cloves.',
+        price=39.90,
+        size=ProductSize.ONE_POUND,
+        primary_img='https://capstone-aromatea.s3.us-west-1.amazonaws.com/MasalaChai.jpg',
+        secondary_img='https://capstone-aromatea.s3.us-west-1.amazonaws.com/MasalaChai2.jpg'
+    )
+
+#################################################
+    product13 = Product(
+        user_id=7,
+        category=CategoryEnum.OOLONG,
+        name='Iron Goddess of Mercy',
+        description="Hand-crafted twice each year, in spring and winter, by a fourth-generation artisan oolong teamaker in Mingjian Village in Taiwan's central Nantou county.",
+        price=63.00,
+        size=ProductSize.ONE_POUND,
+        primary_img='https://capstone-aromatea.s3.us-west-1.amazonaws.com/IronGoddeessofMercy.jpg',
+        secondary_img='https://capstone-aromatea.s3.us-west-1.amazonaws.com/IronGoddessofMercy2.jpg'
+    )
+
+#################################################
+    product14 = Product(
+        user_id=7,
+        category=CategoryEnum.GREEN,
+        name='Jasmine Pearls',
+        description='Jasmine Pearls are a treasure for lovers of floral teas. Delicately sweet and refreshing with a beautiful aromatic finish.',
+        price=79.70,
+        size=ProductSize.QUARTER_POUND,
+        primary_img='https://capstone-aromatea.s3.us-west-1.amazonaws.com/JasminePearls.jpg',
+        secondary_img='https://capstone-aromatea.s3.us-west-1.amazonaws.com/JasminePearls2.jpg'
+    )
+
+
+#################################################
+    product15 = Product(
+        user_id=7,
+        category=CategoryEnum.BOTANICAL,
+        name='Hibiscus Berry',
+        description='Hibiscus Berry makes a great fruity base for sangria and is wonderful served with an orange wheel garnish over ice for a sugar-free fruit punch.',
+        price=39.90,
+        size=ProductSize.ONE_POUND,
+        primary_img='https://capstone-aromatea.s3.us-west-1.amazonaws.com/HibiscusBerry.jpg',
+        secondary_img='https://capstone-aromatea.s3.us-west-1.amazonaws.com/HibiscusBerry2.jpg'
+    )
+
 
     db.session.add(product1)
     db.session.add(product2)
@@ -137,6 +198,11 @@ def seed_products():
     db.session.add(product8)
     db.session.add(product9)
     db.session.add(product10)
+    db.session.add(product11)
+    db.session.add(product12)
+    db.session.add(product13)
+    db.session.add(product14)
+    db.session.add(product15)
 
     db.session.commit()
 

@@ -22,7 +22,7 @@ def seed_reviews():
         rating=4
     )
     review4 = Review(
-        user_id=3,
+        user_id=4,
         product_id=2,
         comment="You can really taste the cinnamon and the fruit. It is woodsy and perfect for a cold night!",
         rating=4
@@ -105,6 +105,114 @@ def seed_reviews():
         comment="If you are looking for a delicate white tea, laced with rose flavor, this should be your go-to drink.",
         rating=5
     )
+    review18 = Review(
+        user_id=4,
+        product_id=11,
+        comment="A wonderful tea, refreshing when served either hot or cold.",
+        rating=5
+    )
+    review19 = Review(
+        user_id=3,
+        product_id=11,
+        comment="The Blueberry Rooibos is my #1 pick. It not only smells amazing, but it's such a tasty treat.",
+        rating=5
+    )
+    review20 = Review(
+        user_id=2,
+        product_id=11,
+        comment="This makes the best iced tea I have ever had.",
+        rating=5
+    )
+    review21 = Review(
+        user_id=5,
+        product_id=11,
+        comment="The blueberry rooibos is so aromatic and delicious and fresh. One tablespoon is enough for 12 ounces of robust and satisfying tea.",
+        rating=5
+    )
+    review22 = Review(
+        user_id=6,
+        product_id=12,
+        comment="Love it - never disappoints.",
+        rating=5
+    )
+    review23 = Review(
+        user_id=4,
+        product_id=12,
+        comment="My favorite morning tea by far!",
+        rating=5
+    )
+    review24 = Review(
+        user_id=2,
+        product_id=12,
+        comment="I love the organic loose leaf chai. I have been ordering it for more than 3 years.",
+        rating=5
+    )
+    review25 = Review(
+        user_id=6,
+        product_id=13,
+        comment="Love, love, love this tea! Aromatea has made me a regular tea drinker.",
+        rating=5
+    )
+    review26 = Review(
+        user_id=4,
+        product_id=13,
+        comment="This is my absolute favorite tea. I never want to be out of it.",
+        rating=5
+    )
+    review27 = Review(
+        user_id=5,
+        product_id=13,
+        comment="This is absolutely my favorite tea. I cold brew or hot brew it.",
+        rating=5
+    )
+    review28 = Review(
+        user_id=2,
+        product_id=13,
+        comment="This oolong tea is different from the ones I have tried before, but very nice! It has a dry, fruity taste, but savory rather than sweet or floral.",
+        rating=5
+    )
+    review29 = Review(
+        user_id=2,
+        product_id=14,
+        comment="I love all kinds of tea, but Jasmine Pearl is by far my favorite.",
+        rating=5
+    )
+    review30 = Review(
+        user_id=3,
+        product_id=14,
+        comment="Great Jasmine Tea. Delicious and refreshingly light flavor.",
+        rating=5
+    )
+    review31 = Review(
+        user_id=5,
+        product_id=14,
+        comment="I will definitely be ordering more!! Taste so good.",
+        rating=5
+    )
+    review32 = Review(
+        user_id=6,
+        product_id=14,
+        comment="beautiful experience to share with my family",
+        rating=5
+    )
+    review33 = Review(
+        user_id=3,
+        product_id=15,
+        comment="Makes an excellent ice tea. One of my favorites.",
+        rating=5
+    )
+    review34 = Review(
+        user_id=5,
+        product_id=15,
+        comment="The most amazing tea I've ever had! Love I simply love it!",
+        rating=5
+    )
+    review35 = Review(
+        user_id=6,
+        product_id=15,
+        comment="This tea is well balanced and refreshing.",
+        rating=5
+    )
 
     db.session.add(review1)
     db.session.add(review2)
@@ -123,6 +231,24 @@ def seed_reviews():
     db.session.add(review15)
     db.session.add(review16)
     db.session.add(review17)
+    db.session.add(review18)
+    db.session.add(review19)
+    db.session.add(review20)
+    db.session.add(review21)
+    db.session.add(review22)
+    db.session.add(review23)
+    db.session.add(review24)
+    db.session.add(review25)
+    db.session.add(review26)
+    db.session.add(review27)
+    db.session.add(review28)
+    db.session.add(review29)
+    db.session.add(review30)
+    db.session.add(review31)
+    db.session.add(review32)
+    db.session.add(review33)
+    db.session.add(review34)
+    db.session.add(review35)
     db.session.commit()
 
 def undo_reviews():
