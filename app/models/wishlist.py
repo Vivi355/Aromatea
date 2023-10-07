@@ -5,7 +5,7 @@ class Wishlist(db.Model):
     __tablename__ = 'wishlists'
 
     __table_args__ = (
-        UniqueConstraint('user_id', 'product_id', name='unique_combination_constraint'),
+        UniqueConstraint('user_id', 'product_id', name='wishlist_combination_constraint'),
         {'schema': SCHEMA} if environment == "production" else None,
     )
 
