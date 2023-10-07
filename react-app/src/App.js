@@ -17,6 +17,7 @@ import LandingPage from "./components/LandingPage";
 import CartPage from "./components/CartPage";
 import ConfirmationPage from "./components/ConfirmationPage";
 import { Footer } from "./components/Footer";
+import Wishlists from "./components/Wishlist";
 
 function App() {
   const dispatch = useDispatch();
@@ -50,6 +51,9 @@ function App() {
           </Route>
           <ProtectedRoute exact path="/cart">
             <CartPage />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/wishlist">
+            <Wishlists />
           </ProtectedRoute>
           <Route exact path="/login" >
             <LoginFormPage />

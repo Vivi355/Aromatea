@@ -51,6 +51,10 @@ function UserProfileDropdown({ user }) {
                         <i className="fas fa-plus-square"></i>
                         <NavLink to="/products/new" onClick={() => setShowMenu(false)}>New Tea</NavLink>
                     </div>
+                    <div className="wishlist-link">
+                        <i className="fas fa-heart open-heart"></i>
+                        <NavLink to="/wishlist" onClick={() => setShowMenu(false)}>My Wishlist</NavLink>
+                    </div>
                     <div className="logout-btn">
                         <i className="fas fa-sign-out-alt"></i>
                         <button

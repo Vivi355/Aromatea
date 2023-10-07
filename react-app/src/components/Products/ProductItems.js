@@ -29,9 +29,9 @@ export const ProductItem = ({product}) => {
                 <div className="product-container">
                     <div className="first-img" onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
                         <Link to={`/products/${product.id}`}>
-                        <img className={`primary-image ${isHovered ? 'image-fade-out' : ''}`} src={product.primaryImg} alt={product.name}></img>
+                            <img className={`primary-image ${isHovered ? 'image-fade-out' : ''}`} src={product.primaryImg} alt={product.name}></img>
 
-                        <img className={`secondary-image ${isHovered ? 'image-fade-in' : ''}`} src={product.secondaryImg} alt={product.name}></img>
+                            <img className={`secondary-image ${isHovered ? 'image-fade-in' : ''}`} src={product.secondaryImg} alt={product.name}></img>
                         </Link>
 
                         {location.pathname === '/products/current' && (
