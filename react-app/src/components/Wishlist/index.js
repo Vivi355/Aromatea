@@ -17,13 +17,6 @@ const Wishlists = () => {
     const lists = useSelector(state => state.wishlist.allList);
     const [loading, setLoading] = useState(true)
     const {openModal} = useModal();
-    // const [addedToCart, setAddedToCart] = useState([]);
-
-    // const cartItems = Object.values(useSelector(state => state.cart.cart));
-
-    // useEffect(() => {
-    //     setAddedToCart(cartItems);
-    // }, [cartItems]);
 
     // dispatch all items in the wishlist
     useEffect(() => {
@@ -49,6 +42,9 @@ const Wishlists = () => {
         // setAddedToCart(prev => [...prev, productId]);
     }
 
+    // items in wishlist?
+    const listItem = Object.values(lists).length;
+
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -59,21 +55,32 @@ const Wishlists = () => {
                 <div className="my-title">My Wishlist</div>
             </div>
 
-            <div id="user-products-container">
-                {lists && Object.values(lists).map(product => (
-                    <div className="single-product" key={product.id}>
-                        <ProductItem product={product} />
-                        <div className="c-and-h">
-                            <button className="list-cart" onClick={() => handleAddCart(product.id)}> ADD TO CART
-                                {/* {addedToCart.includes(product.id) ? "ADDED TO CART" : "ADD TO CART"} */}
-                            </button>
-                            <button className="heart-button" onClick={() => handleHeartClick(product.id)}>
-                                <i className="fas fa-heart heart-icon-on-hover"></i>
-                            </button>
-                        </div>
+            {listItem > 0 ? (
+                <>
+                    <div id="user-products-container">
+                        {lists && Object.values(lists).map(product => (
+                            <div className="single-product" key={product.id}>
+                                <ProductItem product={product} />
+                                <div className="c-and-h">
+                                    <button className="list-cart" onClick={() => handleAddCart(product.id)}> ADD TO CART
+                                        {/* {addedToCart.includes(product.id) ? "ADDED TO CART" : "ADD TO CART"} */}
+                                    </button>
+                                    <button className="heart-button" onClick={() => handleHeartClick(product.id)}>
+                                        <i className="fas fa-heart heart-icon-on-hover"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
                     </div>
-                ))}
-            </div>
+                </>
+            ):(
+                <div className="empty-cart">
+                    <div className="empty-msg">My Wishlist is empty</div>
+                    <NavLink to="/products/all">
+                        <button className="go-b">SHOP NOW</button>
+                    </NavLink>
+                </div>
+            )}
         </div>
 
     )
