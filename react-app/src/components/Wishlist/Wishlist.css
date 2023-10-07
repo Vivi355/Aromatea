@@ -1,0 +1,19 @@
+.c-and-h {
+    display: flex;
+    justify-content: space-between;
+}
+
+.list-cart {
+    background-color: rgb(40,54,69);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 230px;
+    height: 40px;
+}
+
+.list-cart:hover {
+    color: rgb(168,134,103);
+    transform: scale(1.01);
+}

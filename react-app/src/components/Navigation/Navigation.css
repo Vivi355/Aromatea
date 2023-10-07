@@ -39,7 +39,7 @@
   color: white;
   z-index: 1000;
 
-  height: 150px;
+  height: 185px;
   width: 150px;
   display: flex;
   flex-direction: column;
@@ -53,13 +53,16 @@
   margin-top: 15px;
 }
 
-.my-products > a, .new-product-link > a {
+.my-products > a, .new-product-link > a, .wishlist-link > a {
   text-decoration: none;
   color: white;
 }
 
+.fas.open-heart {
+  color: white;
+}
 
-.logout-btn, .greeting, .my-products, .new-product-link {
+.logout-btn, .greeting, .my-products, .new-product-link, .wishlist-link {
   border-top: 1px solid white;
   display: flex;
   flex-direction: row;

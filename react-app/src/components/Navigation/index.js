@@ -43,6 +43,11 @@ function Navigation({ isLoaded }){
 
 				<div className='right-nav'>
 					{/* <div>SEARCH</div> */}
+					{/* <div className='wishlist'>
+						{sessionUser ?
+
+						}
+					</div> */}
 					<div className='account'>
 						{sessionUser ?
 							<UserProfileDropdown user={sessionUser} />
