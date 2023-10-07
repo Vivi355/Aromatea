@@ -16,11 +16,11 @@ Aromatea is a refined e-commerce platform inspired by Rishi Tea. This project of
 
 
 ## Products Page
-![products](images/image-1.png)
+![products](images/new-home.png)
 
 ## Product Detail Page
-![detail](images/image-2.png)
-
+<!-- ![detail](images/image-2.png) -->
+![detail](images/update-detail.png)
 
 ## Getting started
 1. Clone this repository:
@@ -63,7 +63,7 @@ Aromatea is a refined e-commerce platform inspired by Rishi Tea. This project of
 ## Cart
 * Users can read/view all items in their Cart
 * Logged-in Users can add products to their Cart
-* Logged-in Users can edit the quanity of the item in their Cart
+* Logged-in Users can edit the quantity of the item in their Cart
 * Logged-in Users can delete item from their Cart
 
 ## Review
@@ -72,6 +72,11 @@ Aromatea is a refined e-commerce platform inspired by Rishi Tea. This project of
 * Logged-in Users can edit Review on a Product
 * Logged-in Users can delete their Review on a Product
 
+## Wishlist
+* Logged-in Users can read/view their Wishlists
+* Logged-in Users can add Products to their Wishlist
+* Logged-in Users can delete Products from their Wishlist
+
 ## AWS
 * Logged-in Users can upload multiple images of their Products to AWS S3
 
@@ -79,8 +84,7 @@ Aromatea is a refined e-commerce platform inspired by Rishi Tea. This project of
 
 # Future Implementation Goals
 
-1. Wishlist
-2. Search Bar
+1. Search Bar
 
 ***
 
