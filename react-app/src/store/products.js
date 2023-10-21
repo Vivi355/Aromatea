@@ -4,6 +4,7 @@ const CREATE_PRODUCT = "product/CREATE_PRODUCT"
 const EDIT_PRODUCT = "product/EDIT_PRODUCT"
 const DELETE_PRODUCT = "product/DELETE_PRODUCT"
 const CURRENT_USER_PRODUCTS = "products/CURRENT_USER_PRODUCTS"
+const SEARCH_PRODUCT = "products/SEARCH_PRODUCT"
 
 /****************************action types ***************************/
 const getAllProducts = (products) => ({
@@ -33,6 +34,11 @@ const deleteProduct = (productId) => ({
 
 const getCurrentUserProducts = (products) => ({
     type: CURRENT_USER_PRODUCTS,
+    products
+})
+
+const searchProduct = (products) => ({
+    type: SEARCH_PRODUCT,
     products
 })
 
@@ -131,6 +137,23 @@ export const thunkCurrentUserProducts = () => async (dispatch) => {
     }
 }
 
+export const thunkSearchProduct = (searchWord) => async (dispatch) => {
+    const res = await fetch('/api/products/search', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({'searchWord': searchWord})
+    })
+
+    const search = await res.json();
+        if (res.ok) {
+            if (search.error) {
+                return search.error;
+            }
+            dispatch(searchProduct(search.products))
+    } else {
+		return ["An error occurred. Please try again."];
+    }
+}
 
 /************************** Reducer ***********************/
 const initialState = {allProducts: {}, singleProduct: {}, userProducts: {}};
@@ -144,43 +167,48 @@ const productsReducer = (state = initialState, action) => {
                 newState.allProducts[product.id] = product
             })
             return newState;
+
         case GET_SINGLE_PRODUCTS:
             newState = {...state};
             newState.singleProduct = action.product;
             return newState;
+
         case CREATE_PRODUCT:
             return {
                 ...state,
                 allProducts: {...state.allProducts, [action.product.id]: action.product},
                 singleProduct: action.product
             }
+
         case EDIT_PRODUCT:
             return {
                 ...state,
                 allProducts: {...state.allProducts, [action.product.id]: {...action.product}},
                 singleProduct: {...action.product}
             }
+
         case CURRENT_USER_PRODUCTS:
-            // if (action.products && Object.keys(action.products).length) {
-            //     return {
-            //         ...state,
-            //         userProducts: {
-            //             ...action.products
-            //         }
-            //     };
-            // } else {
-            //     return state;
-            // }
             return {
                 ...state,
                 userProducts: action.products || {}
             };
+
         case DELETE_PRODUCT:
             newState = { ...state, allProducts: { ...state.allProducts }, singleProduct: { ...state.singleProduct }, userProducts: { ...state.userProducts } }
             delete newState.allProducts[action.productId]
             delete newState.userProducts[action.productId]
             delete newState.singleProduct;
             return { ...newState, allProducts: { ...newState.allProducts }, userProducts: { ...newState.userProducts }, singleProduct: { ...newState.singleProduct } };
+
+        case SEARCH_PRODUCT:
+            newState = {...state, allProducts: {}, singleProduct: {}};
+            if (Array.isArray(action.products)) {
+                action.products.forEach(product => {
+                    newState.allProducts[product.id] = product
+                })
+            }
+            return newState;
+
         default:
             return state;
     }
