@@ -162,3 +162,24 @@ def delete_product(id):
     db.session.commit()
     # return to_delete.to_dict()
     return {"Message": "Product Deleted Successfully"}
+
+###############################
+
+# search products
+@product_routes.route('/search', methods=['POST'])
+@login_required
+def search_product():
+    """
+    Query for keyword in products page and return the results of search
+    """
+    body = request.get_json()
+    search_data = body['searchWord'].lower()
+
+    # query matched products
+    products = Product.query.filter(Product.name.ilike(f"%{search_data}%")).all()
+
+    if products:
+        res = [product.to_dict() for product in products]
+        return {'products': res}
+    else:
+        return {'error': "No Tea Matches Your Search :("}

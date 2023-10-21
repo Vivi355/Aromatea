@@ -24,6 +24,7 @@
     margin-top: 50px;
     display: flex;
     justify-content: space-between;
+    align-items: self-end;
 }
 
 .back-link > a {
@@ -100,4 +101,18 @@
     color: rgba(0, 0, 0, 0.686);
     font-size: 15px;
     margin-bottom: 20px;
+}
+
+/* search */
+/* .search-form {
+    display: flex;
+    flex-direction: column;
+} */
+
+#search-input {
+    width: 300px;
+}
+
+.search > p {
+    margin-bottom: 0px;
 }
